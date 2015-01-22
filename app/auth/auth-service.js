@@ -8,8 +8,6 @@ define(
 
         var vkAuthPage = 'http://pc.wailorman.ru:1515/auth/vk';
 
-        console.log( vkAuthPage );
-
         return app.service( 'authService', function( $window, $cookies ){
 
             /** @namespace $cookies.token */

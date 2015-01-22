@@ -1,0 +1,82 @@
+body {
+    background: url(../images/bg.jpg) no-repeat;
+    background-size: cover;
+}
+
+@chat-box-width: 350px;
+@chat-box-height: 100%;
+@avatar-width: 50px;
+@message-margin-horizontal: 14px;
+@message-margin-vertical: 13px;
+@message-width: @chat-box-width - @avatar-width - @message-margin-horizontal*2 - 10;
+
+.snailkick-chat-box {
+
+    width: @chat-box-width;
+    height: @chat-box-height;
+    float: left;
+
+    background-color: rgba(0, 0, 0, .4);
+
+    .messages-list {
+
+        .message {
+
+            //            width: 100%;
+            float: left;
+            margin: @message-margin-vertical @message-margin-horizontal;
+
+            .avatar {
+
+                border-radius: 30px;
+                width: @avatar-width;
+                height: @avatar-width;
+
+                float: left;
+                display: inline-block;
+
+                background-size: cover;
+                background-position: center;
+
+            }
+
+            .message-content-box {
+
+                font: 11pt 'Cleanvertising';
+
+                float: left;
+                display: inline-block;
+
+                width: @message-width;
+
+                padding-left: 13px;
+
+                .message-title {
+
+                    height: 15px;
+
+                    .client-name {
+                        color: #bdffba;
+                        float: left;
+                    }
+
+                    .posted-time {
+                        color: #bdffba;
+                        float: right;
+                    }
+
+                }
+
+                .message-text {
+                    margin-top: 5px;
+                    color: white;
+                    font: 12pt 'Cleanvertising';
+                }
+
+            }
+
+        }
+
+    }
+
+}

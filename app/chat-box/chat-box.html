@@ -1,17 +1,28 @@
 <div class="snailkick-chat-box">
 
-    <button ng-click="redirectToVkAuthPage()">
+    <!--<button ng-click="redirectToVkAuthPage()">
         redirectToVkAuthPage
-    </button>
+    </button>-->
 
-    <div class="messages-list">
+    <div class="messages-list" ng-controller="MessagesController">
 
-        <div class="message">
+        <div class="message"
+                ng-repeat="message in messages">
 
-            <div class="avatar-box"></div>
-            <div class="message-box">
-                <div class="client-name"></div>
-                <div class="message-text"></div>
+            <div class="avatar" style="background-image: url({{ message.client.avatar }})"></div>
+
+            <div class="message-content-box">
+                <div class="message-title">
+                    <div class="client-name">
+                        {{ message.client.name }}
+                    </div>
+                    <div class="posted-time">
+                        17:10
+                    </div>
+                </div>
+                <div class="message-text">
+                    {{ message.text }}
+                </div>
             </div>
 
         </div>

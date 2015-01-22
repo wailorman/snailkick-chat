@@ -1,10 +1,11 @@
 define(
     [
-        'app'
+        'app',
+        'messages-controller'
     ],
     function ( app ) {
 
-        console.log( 'snailkick chat directive' );
+        console.log( 'snailkick chat (main) directive' );
 
         return app.directive( "snailkickChat", function () {
 

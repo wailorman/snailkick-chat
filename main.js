@@ -10,8 +10,12 @@ require.config( {
         'app': 'app/app',
 
         'auth-service': 'app/auth/auth-service',
+        'api-service': 'app/api/api-service',
+        'messages-service': 'app/messages/messages-service',
 
-        'snailkick-chat-directive': 'app/chat-box/snailkick-chat-directive'
+        'messages-controller': 'app/messages/messages-controller',
+
+        'snailkick-chat-directive': 'app/chat-box/main-directive'
     },
 
     shim: {
