@@ -18,23 +18,97 @@ body {
 
     background-color: rgba(0, 0, 0, .4);
 
+    @client-bar-height: 60px;
+
+    .client-bar {
+
+        background-color: rgba(0, 0, 0, 0.25);
+
+        z-index: 100;
+        position: absolute;
+        height: @client-bar-height;
+        width: @chat-box-width;
+
+        color: white;
+
+        font: 12pt 'Cleanvertising';
+
+        .avatar {
+
+            @client-bar-avatar-size: 35px;
+
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: right;
+
+            border-radius: 30px;
+
+            @client-bar-avatar-vert-margin: (( @client-bar-height - @client-bar-avatar-size ) / 2);
+
+            margin: @client-bar-avatar-vert-margin 0 @client-bar-avatar-vert-margin 30px;
+
+            height: @client-bar-avatar-size;
+            width: @client-bar-avatar-size;
+
+            display: inline-block;
+            float: left;
+        }
+
+        .name {
+            display: inline-block;
+            height: inherit;
+            float: left;
+            padding: 20px 10px;
+        }
+
+        .logout {
+            display: inline-block;
+            float: right;
+            height: inherit;
+            padding: 20px 30px 20px 0;
+
+            &:hover {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+
+        }
+
+    }
+
     .messages-list {
+
+        position: absolute;
+        //        height: 100%;
+        width: @chat-box-width;
+
+        //        padding-bottom: @typing-box-height;
+
+        top: @client-bar-height;
+        bottom: @typing-box-height;
+
+        overflow-y: scroll;
+        overflow-x: hidden;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
 
         .message {
 
-            //            width: 100%;
             float: left;
-            margin: @message-margin-vertical @message-margin-horizontal;
+
+            margin: 10px 0;
+            padding: 0 10px;
+
+            width: 100%;
 
             .avatar {
 
                 border-radius: 30px;
                 width: @avatar-width;
                 height: @avatar-width;
-
                 float: left;
-                display: inline-block;
-
                 background-size: cover;
                 background-position: center;
 
@@ -43,13 +117,8 @@ body {
             .message-content-box {
 
                 font: 11pt 'Cleanvertising';
-
-                float: left;
-                display: inline-block;
-
-                width: @message-width;
-
-                padding-left: 13px;
+                padding-left: @avatar-width + 13px;
+                width: 100%;
 
                 .message-title {
 
@@ -76,6 +145,46 @@ body {
             }
 
         }
+
+    }
+
+    @typing-box-height: 50px;
+
+    .typing-box {
+
+        position: absolute;
+        height: @typing-box-height;
+        width: inherit;
+
+        background-color: rgba(0, 0, 0, 0.25);
+
+        .text, .text:focus {
+            width: 300px;
+            height: inherit;
+            border: none;
+            background: none;
+            padding: 15px;
+            color: white;
+            font: 12pt 'Cleanvertising';
+            outline: none;
+        }
+
+        .send-button {
+            display: inline-block;
+            height: @typing-box-height;
+            width: @typing-box-height;
+            float: right;
+            background: url('../images/send.png') no-repeat center;
+            background-size: 40%;
+            opacity: 0.7;
+
+            &:hover {
+                opacity: 1;
+                cursor: pointer;
+            }
+        }
+
+        bottom: 0;
 
     }
 

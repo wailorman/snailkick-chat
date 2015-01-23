@@ -12,23 +12,33 @@
             <div class="avatar" style="background-image: url({{ message.client.avatar }})"></div>
 
             <div class="message-content-box">
+
                 <div class="message-title">
+
                     <div class="client-name">
                         {{ message.client.name }}
                     </div>
                     <div class="posted-time">
-                        17:10
+                        {{ message.posted.getHours() }}:{{ message.posted.getMinutes() }}
                     </div>
+
                 </div>
+
                 <div class="message-text">
                     {{ message.text }}
                 </div>
+
             </div>
 
         </div>
 
     </div>
 
-    <div class="typing-box"></div>
+    <div class="typing-box">
+
+        <input type="text" class="text"/>
+        <div class="send-button"></div>
+
+    </div>
 
 </div>

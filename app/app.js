@@ -3,7 +3,8 @@ define(
         'angular',
         'angular-route',
         'angular-resource',
-        'angular-cookies'
+        'angular-cookies',
+        'angular-scroll-glue'
     ],
     function ( angular ){
 
@@ -12,7 +13,8 @@ define(
         return angular.module( 'snailkickChat', [
             'ngRoute',
             'ngResource',
-            'ngCookies'
+            'ngCookies',
+            'luegg.directives'
         ] );
 
     }
