@@ -10,89 +10,6 @@ define(
 
             var messagesService = this;
 
-            messagesService.messages = [
-                {
-                    text:   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                    client: { name: 'Сергей Попов', avatar: 'http://cs314730.vk.me/v314730142/c473/UFnidpMxrQM.jpg' },
-                    posted: new Date()
-                },
-                {
-                    text:   'do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                    client: { name: 'Сергей Попов', avatar: 'http://cs424630.vk.me/v424630762/26b8/2VjOW60CaoI.jpg' },
-                    posted: new Date()
-                },
-                {
-                    text:   'Что-то по-русски',
-                    client: { name: 'Сергей Попов', avatar: 'http://cs620724.vk.me/v620724301/2748/f12lLJZn8aM.jpg' },
-                    posted: new Date()
-                },
-                {
-                    text:   'Lorem ipsum dolor sit amet',
-                    client: { name: 'Сергей Попов', avatar: 'http://cs314730.vk.me/v314730142/c473/UFnidpMxrQM.jpg' },
-                    posted: new Date()
-                },
-                {
-                    text:   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                    client: { name: 'Сергей Попов', avatar: 'http://cs314730.vk.me/v314730142/c473/UFnidpMxrQM.jpg' },
-                    posted: new Date()
-                },
-                {
-                    text:   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                    client: { name: 'Сергей Попов', avatar: 'http://cs314730.vk.me/v314730142/c473/UFnidpMxrQM.jpg' },
-                    posted: new Date()
-                },
-                {
-                    text:   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                    client: { name: 'Сергей Попов', avatar: 'http://cs314730.vk.me/v314730142/c473/UFnidpMxrQM.jpg' },
-                    posted: new Date()
-                },
-                {
-                    text:   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                    client: { name: 'Сергей Попов', avatar: 'http://cs314730.vk.me/v314730142/c473/UFnidpMxrQM.jpg' },
-                    posted: new Date()
-                },
-                {
-                    text:   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                    client: { name: 'Сергей Попов', avatar: 'http://cs314730.vk.me/v314730142/c473/UFnidpMxrQM.jpg' },
-                    posted: new Date()
-                },
-                {
-                    text:   'Lorem ipsum dolor sit amet, consectetur',
-                    client: { name: 'Сергей Попов', avatar: 'http://cs424630.vk.me/v424630762/26b8/2VjOW60CaoI.jpg' },
-                    posted: new Date()
-                },
-                {
-                    text:   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
-                    client: { name: 'Сергей Попов', avatar: 'http://cs314730.vk.me/v314730142/c473/UFnidpMxrQM.jpg' },
-                    posted: new Date()
-                },
-                {
-                    text:   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquad',
-                    client: { name: 'Сергей Попов', avatar: 'http://cs620724.vk.me/v620724301/2748/f12lLJZn8aM.jpg' },
-                    posted: new Date()
-                },
-                {
-                    text:   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                    client: { name: 'Сергей Попов', avatar: 'http://cs314730.vk.me/v314730142/c473/UFnidpMxrQM.jpg' },
-                    posted: new Date()
-                },
-                {
-                    text:   'Lorem ipsum dolor sit amet, consectetur',
-                    client: { name: 'Сергей Попов', avatar: 'http://cs424630.vk.me/v424630762/26b8/2VjOW60CaoI.jpg' },
-                    posted: new Date()
-                },
-                {
-                    text:   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
-                    client: { name: 'Сергей Попов', avatar: 'http://cs314730.vk.me/v314730142/c473/UFnidpMxrQM.jpg' },
-                    posted: new Date()
-                },
-                {
-                    text:   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquad',
-                    client: { name: 'Сергей Попов', avatar: 'http://cs620724.vk.me/v620724301/2748/f12lLJZn8aM.jpg' },
-                    posted: new Date()
-                }
-            ];
-
             /**
              * Call callback(true) if added some new messages.
              * And callback(false) if no any new messages
@@ -106,7 +23,7 @@ define(
                     apiService.getLastMessages( 1 ).then( function ( receivedMessages ) {
 
                         // if no messages - new!
-                        if ( messagesService.messages.length == 0 ) return resolve();
+                        if ( ! messagesService.messages || messagesService.messages.length == 0 ) return resolve();
 
                         var lastLocalMessage = messagesService.messages[ 0 ];
 
@@ -114,10 +31,16 @@ define(
 
 
                         // If no new messages
-                        if ( lastLocalMessage.id == lastApiMessage.id ) return reject();
+                        if ( lastLocalMessage.id == lastApiMessage.id ) {
+                            console.log( 'isAnyNewMessages: no new messages' );
+                            return reject();
+                        }
 
                         // If some new messages
-                        if ( lastLocalMessage.id != lastApiMessage.id ) return resolve();
+                        if ( lastLocalMessage.id != lastApiMessage.id ) {
+                            console.log( 'isAnyNewMessages: some new messages' );
+                            return resolve();
+                        }
 
                     }, function ( error ) {
                         console.log( error );
@@ -183,6 +106,7 @@ define(
                         .then( function () {
 
                             // get new message!
+                            console.log( 'new message!' );
 
                             apiService.getLastMessages( 100 )
                                 .then( function ( receivedMessages ) {
@@ -204,6 +128,26 @@ define(
 
                 } );
 
+
+            };
+
+            messagesService.sendMessage = function ( messageText ) {
+
+                return $q( function ( resolve, reject ) {
+
+                    if ( ! messageText ) return reject( new Error( 'messageText is empty!' ) );
+
+                    apiService.sendMessage( messageText )
+                        .then( function () {
+                            // success
+                            messagesService.refresh();
+                            resolve();
+                        } )
+                        .catch( function ( error ) {
+                            reject( error );
+                        } );
+
+                } );
 
             };
 

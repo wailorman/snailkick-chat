@@ -7,7 +7,7 @@ require.config( {
         'angular-cookies':     'bower_components/angular-cookies/angular-cookies',
         'angular-scroll-glue': 'bower_components/angular-scroll-glue/src/scrollglue',
         'async':               'bower_components/async/lib/async',
-        'promise':             'bower_components/promise/promise',
+        'sugar':               'bower_components/sugarjs/release/sugar-full.min',
 
         'jquery': 'bower_components/jquery/dist/jquery.min',
 
@@ -16,7 +16,7 @@ require.config( {
         'auth-service':     'app/auth/auth-service',
         'api-service':      'app/api/api-service',
         'messages-service': 'app/messages/messages-service',
-        'clients-service': 'app/clients/clients-service',
+        'clients-service':  'app/clients/clients-service',
 
         'messages-controller': 'app/messages/messages-controller',
 
@@ -35,7 +35,7 @@ require.config( {
         'angular-cookies':     [ 'angular' ],
         'angular-scroll-glue': [ 'angular' ],
 
-        'app':                 [ 'angular' ]
+        'app': [ 'angular' ]
     }
 
 } );

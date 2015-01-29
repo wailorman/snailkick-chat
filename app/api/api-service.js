@@ -1,19 +1,18 @@
 define(
     [
-        'app',
-        'promise'
+        'app'
     ],
-    function ( app, Promise ) {
+    function ( app ) {
 
-        return app.service( 'apiService', function ( $resource, $rootScope, authService, $q ) {
+        return app.service( 'apiService', function ( $resource, $rootScope, authService, $q, $log, $http, $cookies ) {
 
             var apiService = this;
 
             var apiAddress = 'http://pc.wailorman.ru:1515';
 
-            var Messages = $resource( apiAddress + '/messages', null, {
+            var Messages = $resource( apiAddress + '/messages', {}, {
                 query: { method: 'GET', isArray: true },
-                post:  { method: 'POST', headers: { token: authService.token ? authService.token : null } }
+                send:  { method: 'POST', isArray: false, params: { 'token': $cookies.token } }
             } );
 
             var Client = $resource( apiAddress + '/clients/:id' );
@@ -32,10 +31,6 @@ define(
                     if ( ! limit ) limit = 100;
 
                     Messages.query( { limit: limit } ).$promise.then( function ( messages ) {
-
-                        //console.log( 'Messages query resolve' );
-
-                        //console.log( messages[0] );
 
                         resolve( messages );
 
@@ -71,11 +66,33 @@ define(
 
                     } );
 
-                });
+                } );
 
             };
 
             apiService.sendMessage = function ( messageText ) {
+
+                return $q( function ( resolve, reject ) {
+
+                    if ( ! authService.token ) return reject( new Error( 'Token is not defined!' ) );
+
+                    var messageToSend = new Messages();
+                    messageToSend.text = messageText;
+
+                    messageToSend.$send()
+                        .then( function () {
+
+                            resolve();
+
+                        } )
+                        .catch( function ( errorMessage ) {
+
+                            $log.error( errorMessage );
+
+                        } );
+
+                } );
+
             };
 
         } );
