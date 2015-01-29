@@ -7,6 +7,8 @@
           <resourceRoots>
             <path value="file://$PROJECT_DIR$/src" />
             <path value="file://$PROJECT_DIR$/bower_components/bootstrap/dist/css" />
+            <path value="file://$PROJECT_DIR$/css" />
+            <path value="file://$PROJECT_DIR$/images" />
           </resourceRoots>
         </entryData>
       </entry>

@@ -7,31 +7,35 @@ require.config( {
         'angular-cookies':     'bower_components/angular-cookies/angular-cookies',
         'angular-scroll-glue': 'bower_components/angular-scroll-glue/src/scrollglue',
         'async':               'bower_components/async/lib/async',
+        'promise':             'bower_components/promise/promise',
 
-        'jquery': 'bower_components/jquery/dist/jquery.js',
+        'jquery': 'bower_components/jquery/dist/jquery.min',
 
         'app': 'app/app',
 
         'auth-service':     'app/auth/auth-service',
         'api-service':      'app/api/api-service',
         'messages-service': 'app/messages/messages-service',
+        'clients-service': 'app/clients/clients-service',
 
         'messages-controller': 'app/messages/messages-controller',
 
-        'snailkick-chat-directive': 'app/chat-box/main-directive'
+        'main-directive': 'app/chat-box/main-directive'
     },
 
     shim: {
 
         'angular': {
-            exports: 'angular'
+            exports: 'angular',
+            deps:    [ 'jquery' ]
         },
 
-        'angular-route':    [ 'angular' ],
-        'angular-resource': [ 'angular' ],
-        'angular-cookies':  [ 'angular' ],
+        'angular-route':       [ 'angular' ],
+        'angular-resource':    [ 'angular' ],
+        'angular-cookies':     [ 'angular' ],
         'angular-scroll-glue': [ 'angular' ],
-        'app': [ 'angular' ]
+
+        'app':                 [ 'angular' ]
     }
 
 } );
@@ -44,7 +48,7 @@ require(
 
         'auth-service',
 
-        'snailkick-chat-directive'
+        'main-directive'
     ],
     function () {
 

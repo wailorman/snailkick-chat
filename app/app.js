@@ -8,7 +8,7 @@ define(
     ],
     function ( angular ){
 
-        console.log( 'app' );
+        //console.log( 'app' );
 
         return angular.module( 'snailkickChat', [
             'ngRoute',
