@@ -1,0 +1,213 @@
+body {
+  background: url(../images/bg.jpg) no-repeat;
+  background-size: cover;
+}
+.snailkick-chat-box {
+  width: 350px;
+  height: 100%;
+  float: left;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.snailkick-chat-box .client-bar {
+  background-color: rgba(0, 0, 0, 0.25);
+  z-index: 100;
+  position: absolute;
+  height: 60px;
+  width: 350px;
+  color: white;
+  font: 12pt 'Cleanvertising';
+}
+.snailkick-chat-box .client-bar .avatar {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+  border-radius: 30px;
+  margin: 12.5px 0 12.5px 30px;
+  height: 35px;
+  width: 35px;
+  display: inline-block;
+  float: left;
+}
+.snailkick-chat-box .client-bar .name {
+  display: inline-block;
+  height: inherit;
+  float: left;
+  padding: 20px 10px;
+}
+.snailkick-chat-box .client-bar .logout {
+  display: inline-block;
+  float: right;
+  height: inherit;
+  padding: 20px 30px 20px 0;
+}
+.snailkick-chat-box .client-bar .logout:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.snailkick-chat-box .messages-list {
+  position: absolute;
+  width: 350px;
+  top: 60px;
+  bottom: 50px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.snailkick-chat-box .messages-list::-webkit-scrollbar {
+  display: none;
+}
+.snailkick-chat-box .messages-list.transparent {
+  opacity: 0.1;
+  top: 0;
+  bottom: 0;
+}
+.snailkick-chat-box .messages-list .message {
+  float: left;
+  margin: 10px 0;
+  padding: 0 10px;
+  width: 100%;
+}
+.snailkick-chat-box .messages-list .message .avatar {
+  border-radius: 30px;
+  width: 50px;
+  height: 50px;
+  float: left;
+  background-size: cover;
+  background-position: center;
+}
+.snailkick-chat-box .messages-list .message .message-content-box {
+  font: 11pt 'Cleanvertising';
+  padding-left: 63px;
+  width: 100%;
+}
+.snailkick-chat-box .messages-list .message .message-content-box .message-title {
+  height: 15px;
+}
+.snailkick-chat-box .messages-list .message .message-content-box .message-title .client-name {
+  color: #bdffba;
+  float: left;
+}
+.snailkick-chat-box .messages-list .message .message-content-box .message-title .posted-time {
+  color: #bdffba;
+  float: right;
+}
+.snailkick-chat-box .messages-list .message .message-content-box .message-text {
+  margin-top: 5px;
+  color: white;
+  font: 12pt 'Cleanvertising';
+}
+.snailkick-chat-box .typing-box {
+  position: absolute;
+  height: 50px;
+  width: inherit;
+  background-color: rgba(0, 0, 0, 0.25);
+  bottom: 0;
+}
+.snailkick-chat-box .typing-box .text,
+.snailkick-chat-box .typing-box .text:focus {
+  width: 300px;
+  height: inherit;
+  border: none;
+  background: none;
+  padding: 15px;
+  color: white;
+  font: 12pt 'Cleanvertising';
+  outline: none;
+}
+.snailkick-chat-box .typing-box .send-button {
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+  float: right;
+  background: url('../images/send.png') no-repeat center;
+  background-size: 40%;
+  opacity: 0.7;
+}
+.snailkick-chat-box .typing-box .send-button:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+.snailkick-chat-box .auth-box {
+  position: absolute;
+  vertical-align: middle;
+  top: 30%;
+  width: inherit;
+}
+.snailkick-chat-box .auth-box h1 {
+  color: white;
+  font: 26pt 'Cleanvertising';
+  text-align: center;
+}
+.snailkick-chat-box .auth-box h2 {
+  font: 15pt 'Cleanvertising';
+  color: white;
+  text-align: center;
+  width: 80%;
+  margin: 35px auto;
+}
+.snailkick-chat-box .auth-box .auth-buttons-container {
+  display: table;
+  width: 60%;
+  margin: 0 auto;
+}
+.snailkick-chat-box .auth-box .auth-buttons-container .auth-button {
+  margin: 0 auto;
+  height: 64px;
+  width: 64px;
+  background: no-repeat center;
+  background-size: contain;
+  display: table-cell;
+  cursor: pointer;
+}
+.snailkick-chat-box .auth-box .auth-buttons-container .auth-button.vk {
+  background-image: url('../images/vk.png');
+}
+.snailkick-chat-box .auth-box .problems {
+  font: 13pt 'Cleanvertising';
+  color: #a8a8a8;
+  text-align: center;
+  margin: 35px auto;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.snailkick-chat-box .power-off-box {
+  position: absolute;
+  vertical-align: middle;
+  top: 33%;
+  width: inherit;
+  display: table;
+}
+.snailkick-chat-box .power-off-box h1 {
+  color: white;
+  font: 18pt 'Cleanvertising';
+  text-align: center;
+}
+.snailkick-chat-box .power-off-box .power-off-icon {
+  width: inherit;
+  height: 64px;
+  background: url('../images/power-off.png') center no-repeat;
+  background-size: contain;
+  margin-top: 35px;
+}
+.snailkick-chat-box .loading-box {
+  position: absolute;
+  width: inherit;
+  bottom: 0;
+  top: 0;
+}
+.snailkick-chat-box .loading-box .loading-image {
+  height: 128px;
+  width: inherit;
+  background: url(../images/loading.png) center no-repeat;
+  background-size: contain;
+  position: absolute;
+  top: 40%;
+  transition: all 0.5s linear;
+}
+@keyframes loading {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
