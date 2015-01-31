@@ -4,7 +4,8 @@ define(
         'angular-route',
         'angular-resource',
         'angular-cookies',
-        'angular-scroll-glue'
+        'angular-scroll-glue',
+        'angular-local-storage'
     ],
     function ( angular ){
 
@@ -14,7 +15,8 @@ define(
             'ngRoute',
             'ngResource',
             'ngCookies',
-            'luegg.directives'
+            'luegg.directives',
+            'LocalStorageModule'
         ] );
 
     }

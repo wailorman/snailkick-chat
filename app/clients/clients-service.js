@@ -4,11 +4,12 @@ define(
         'app'
     ],
     function ( angular, app ) {
-        app.service( 'clientsService', function ( $rootScope, $resource, apiService, $q ) {
+        app
+            .service( 'clientsService', function ( $rootScope, $resource, apiService, $q ) {
 
                 var clientsService = this;
 
-                clientsService.clients = [];
+                clientsService.clients = {};
 
                 /**
                  * Cache Client
@@ -26,11 +27,10 @@ define(
                         // this client do not need to cache himself
                         if ( clientsService.clients[ clientId ] ) return resolve();
 
-                        apiService.getClientById( clientId ).then( function ( receivedClient ) {
 
-                            clientsService.clients.push( receivedClient );
+                        apiService.getClient( clientId ).then( function ( receivedClient ) {
 
-                            clientsService.broadcastChangesInClientsCache();
+                            clientsService.clients[ clientId ] = receivedClient;
 
                             return resolve();
 
@@ -40,11 +40,6 @@ define(
 
                 };
 
-                clientsService.broadcastChangesInClientsCache = function () {
-                    $rootScope.$broadcast( 'clientsService:cache update' );
-                }
-
-            }
-        );
+            } );
     }
 );

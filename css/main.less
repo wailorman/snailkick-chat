@@ -94,6 +94,14 @@ body {
             display: none;
         }
 
+        &.transparent {
+
+            opacity: 0.1;
+            top: 0;
+            bottom: 0;
+
+        }
+
         .message {
 
             float: left;
@@ -188,4 +196,144 @@ body {
 
     }
 
+    .auth-box {
+
+        position: absolute;
+        vertical-align: middle;
+
+        top: 30%;
+
+        width: inherit;
+
+        h1 {
+
+            color: white;
+            font: 26pt 'Cleanvertising';
+            text-align: center;
+
+        }
+
+        h2 {
+
+            font: 15pt 'Cleanvertising';
+            color: white;
+            text-align: center;
+            width: 80%;
+            margin: 35px auto;
+
+        }
+
+        .auth-buttons-container {
+
+            display: table;
+            width: 60%;
+            margin: 0 auto;
+
+            .auth-button {
+
+                margin: 0 auto;
+                height: 64px;
+                width: 64px;
+
+                background: no-repeat center;
+
+                background-size: contain;
+                display: table-cell;
+
+                cursor: pointer;
+
+                &.vk {
+
+                    background-image: url('../images/vk.png');
+
+                }
+
+            }
+
+        }
+
+        .problems {
+
+            font: 13pt 'Cleanvertising';
+            color: rgb(168, 168, 168);
+            text-align: center;
+            margin: 35px auto;
+            text-decoration: underline;
+            cursor: pointer;
+
+        }
+
+    }
+
+    .power-off-box {
+
+        position: absolute;
+        vertical-align: middle;
+
+        top: 33%;
+
+        width: inherit;
+
+        display: table;
+
+        h1 {
+
+            color: white;
+            font: 18pt 'Cleanvertising';
+            text-align: center;
+
+        }
+
+        .power-off-icon {
+
+            width: inherit;
+            height: 64px;
+//            display: table-row;
+
+            background: url('../images/power-off.png') center no-repeat;
+            background-size: contain;
+
+            margin-top: 35px;
+
+        }
+
+    }
+
+    .loading-box {
+
+        position: absolute;
+        width: inherit;
+        bottom: 0;
+        top: 0;
+
+        .loading-image {
+
+            height: 128px;
+            width: inherit;
+            background: url(../images/loading.png) center no-repeat;
+            background-size: contain;
+            position: absolute;
+            top: 40%;
+            transition: all 0.5s linear;
+
+//            -webkit-animation-duration: 5s;
+//            -webkit-animation: loading;
+//            -webkit-animation-iteration-count: infinite;
+//            -webkit-animation-direction: alternate;
+
+        }
+
+    }
+
+}
+
+
+@keyframes loading {
+    from {
+        transform: rotate( 0deg );
+    }
+
+    to {
+        transform: rotate( 180deg );
+    }
 }

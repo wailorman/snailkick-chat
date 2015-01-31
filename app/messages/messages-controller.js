@@ -9,55 +9,70 @@ define(
         'sugar'
     ],
     function ( angular, app ) {
-        return app.controller( 'MessagesController', function ( $scope, $rootScope, authService, apiService, messagesService, $q, clientsService, $log ) {
+        return app
+            .controller( 'MessagesController', function ( $scope, $rootScope, $q, $log,
+                                                          messagesService, clientsService, userClientService, boxStateService ) {
 
-            $scope.messages = [];
-            //$scope.messages = messagesService.messages ? messagesService.messages.reverse() : [];
+                ///////////////////////////////
+                // Variables
+                ///////////////////////////////
+                $scope.messageToSend = '';
+                //$scope.chatBoxState = boxStateService.state;
+                //$scope.userClient = userClientService.clientInfo;
+                //$scope.messages = messagesService.messages;
+                //$scope.clients = clientsService.clients;
 
-            $scope.messageToSend = '';
 
-            $scope.getMessagesFromMessagesService = function () {
+                ////////////////////////////////
+                // Listeners
+                ////////////////////////////////
 
-                if ( messagesService.messages ) {
-                    $scope.messages = messagesService.messages.clone();
-                    $scope.messages.reverse();
-                    $scope.$applyAsync();
-                }
-            };
+                //$rootScope.$on( 'messagesService:messages update', updateMessages );
+                //$rootScope.$on( 'clientsService:cache update', updateClientsCache );
+                //$rootScope.$on( 'userClientService:upd', updateUserClientInfo );
+                //$rootScope.$on( 'boxStateService:upd', updateChatBoxState );
 
-            $scope.sendMessage = function ( message ) {
-                message = message || $scope.messageToSend;
+                $scope.$watchGroup(
+                    [
+                        function(){ return boxStateService.state; },
+                        function(){ return userClientService.clientInfo;},
+                        function(){ return messagesService.messages; },
+                        function(){ return clientsService.clients; }
+                    ],
+                    function(){
 
-                messagesService.sendMessage( message )
-                    .then( function () {
+                        $scope.chatBoxState = boxStateService.state;
+                        $scope.userClient = userClientService.clientInfo;
+                        $scope.messages = messagesService.messages.clone().reverse();
+                        $scope.clients = clientsService.clients;
 
-                        $scope.messageToSend = '';
+                    }
+                );
 
-                    } )
-                    .catch( function ( error ) {
-                        $log.error( error );
-                    } );
-            };
+                ///////////////////////////////////////////
+                // Scope functions
+                ///////////////////////////////////////////
 
-            $scope.clients = clientsService.clients;
+                $scope.sendMessage = function ( message ) {
+                    message = message || $scope.messageToSend;
 
-            $rootScope.$on( 'messagesService:messages_update', function () {
+                    messagesService.sendMessage( message )
+                        .then( function () {
 
-                $scope.getMessagesFromMessagesService();
-                $scope.$applyAsync();
+                            $scope.messageToSend = '';
+
+                        } )
+                        .catch( function ( error ) {
+                            $log.error( error );
+                        } );
+                };
+                $scope.logout = userClientService.logout;
+                $scope.redirectToVkAuthPage = userClientService.redirectToVkAuthPage;
+
+                ///////////////////////////////////////////
+                // ON LOADING
+                ///////////////////////////////////////////
 
             } );
-
-            $scope.client = {
-                name:   'Сергей Попов',
-                avatar: 'http://cs314730.vk.me/v314730142/c473/UFnidpMxrQM.jpg',
-                logout: function () {
-
-                    //console.log( 'logout!' );
-
-                }
-            };
-
-        } );
     }
 );
