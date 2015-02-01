@@ -8,7 +8,7 @@ require.config( {
         'angular-scroll-glue':   'bower_components/angular-scroll-glue/src/scrollglue',
         'angular-local-storage': 'bower_components/angular-local-storage/dist/angular-local-storage',
         'async':                 'bower_components/async/lib/async',
-        'sugar':                 'bower_components/sugarjs/release/sugar-full.min',
+        'sugar':                 'bower_components/sugarjs/release/sugar.min',
 
         'jquery': 'bower_components/jquery/dist/jquery.min',
 

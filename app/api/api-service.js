@@ -5,140 +5,141 @@ define(
     function ( app ) {
 
         return app
-            .service( 'apiService', function ( $resource, $rootScope, $q, $log, $http, $cookies, $location,
-                                               authService, userTokenService ) {
+            .service( 'apiService', [
+                '$resource', '$rootScope', '$q', '$log', '$http', '$cookies', '$location', 'authService', 'userTokenService',
+                function ( $resource, $rootScope, $q, $log, $http, $cookies, $location, authService, userTokenService ) {
 
-                var apiService = this;
+                    var apiService = this;
 
-                apiService.available = false;
-                var apiAddress = 'http://' + $location.host() + ':1515';
+                    apiService.available = false;
+                    var apiAddress = 'http://api.chat.snailkick.ru:1515';
 
-                var Messages = $resource( apiAddress + '/messages', {}, {
-                    query: { method: 'GET', isArray: true },
-                    send:  { method: 'POST', isArray: false, params: { 'token': userTokenService.get() } }
-                } );
-                var Client = $resource( apiAddress + '/clients/:idOrToken' );
-
-                apiService.changeApiAvailability = function ( state ) {
-
-                    if ( state !== apiService.available ) {
-                        apiService.available = state;
-                        $rootScope.$broadcast( 'api availability change' );
-                    }
-
-                };
-
-                apiService.catchApiUnavailable = function ( parentPromise ) {
-
-                    parentPromise
-                        .then( function () {
-
-                            apiService.changeApiAvailability( true );
-
-                        } )
-                        .catch( function ( error ) {
-
-                            if ( error && error.status == 0 ) {
-                                apiService.changeApiAvailability( false );
-                            }
-
-                        } );
-
-                };
-
-                /**
-                 * Get last N messages from API
-                 *
-                 * @param limit     default to 100
-                 *
-                 * @return {Promise} resolve( messages ) ; reject()
-                 */
-                apiService.getLastMessages = function ( limit ) {
-
-                    return $q( function ( resolve, reject ) {
-
-                        if ( ! limit ) limit = 100;
-
-                        var deferredQuery = Messages.query( { limit: limit } ).$promise;
-
-                        deferredQuery.then( function ( messages ) {
-
-                            resolve( messages );
-
-                        } );
-                        deferredQuery.catch( function ( error ) {
-
-                            reject( error );
-
-                        } );
-
-                        apiService.catchApiUnavailable( deferredQuery );
-
+                    var Messages = $resource( apiAddress + '/messages', {}, {
+                        query: { method: 'GET', isArray: true },
+                        send:  { method: 'POST', isArray: false, params: { 'token': userTokenService.get() } }
                     } );
+                    var Client = $resource( apiAddress + '/clients/:idOrToken' );
 
-                };
+                    apiService.changeApiAvailability = function ( state ) {
 
-                /**
-                 * Get Client by id from API
-                 *
-                 * @param idOrToken
-                 * @returns {Promise} resolve( client ) ; reject()
-                 */
-                apiService.getClient = function ( idOrToken ) {
+                        if ( state !== apiService.available ) {
+                            apiService.available = state;
+                            $rootScope.$broadcast( 'api availability change' );
+                        }
 
-                    return $q( function ( resolve, reject ) {
+                    };
 
-                        if ( ! idOrToken ) return reject();
+                    apiService.catchApiUnavailable = function ( parentPromise ) {
 
-                        var deferredQuery = Client.get( { idOrToken: idOrToken } ).$promise;
+                        parentPromise
+                            .then( function () {
 
-                        deferredQuery.then( function ( receivedClient ) {
+                                apiService.changeApiAvailability( true );
 
-                            resolve( receivedClient );
+                            } )
+                            .catch( function ( error ) {
+
+                                if ( error && error.status == 0 ) {
+                                    apiService.changeApiAvailability( false );
+                                }
+
+                            } );
+
+                    };
+
+                    /**
+                     * Get last N messages from API
+                     *
+                     * @param limit     default to 100
+                     *
+                     * @return {Promise} resolve( messages ) ; reject()
+                     */
+                    apiService.getLastMessages = function ( limit ) {
+
+                        return $q( function ( resolve, reject ) {
+
+                            if ( ! limit ) limit = 100;
+
+                            var deferredQuery = Messages.query( { limit: limit } ).$promise;
+
+                            deferredQuery.then( function ( messages ) {
+
+                                resolve( messages );
+
+                            } );
+                            deferredQuery.catch( function ( error ) {
+
+                                reject( error );
+
+                            } );
+
+                            apiService.catchApiUnavailable( deferredQuery );
 
                         } );
-                        deferredQuery.catch( function ( error ) {
 
-                            reject( error );
+                    };
 
-                        } );
+                    /**
+                     * Get Client by id from API
+                     *
+                     * @param idOrToken
+                     * @returns {Promise} resolve( client ) ; reject()
+                     */
+                    apiService.getClient = function ( idOrToken ) {
 
-                        apiService.catchApiUnavailable( deferredQuery );
+                        return $q( function ( resolve, reject ) {
 
-                    } );
+                            if ( ! idOrToken ) return reject();
 
-                };
+                            var deferredQuery = Client.get( { idOrToken: idOrToken } ).$promise;
 
+                            deferredQuery.then( function ( receivedClient ) {
 
-                apiService.sendMessage = function ( messageText ) {
+                                resolve( receivedClient );
 
-                    return $q( function ( resolve, reject ) {
+                            } );
+                            deferredQuery.catch( function ( error ) {
 
-                        if ( ! userTokenService.get() ) return reject( new Error( 'Token is not defined!' ) );
+                                reject( error );
 
-                        var messageToSend = new Messages();
-                        messageToSend.text = messageText;
+                            } );
 
-                        var deferredSending = messageToSend.$send();
-
-                        deferredSending.then( function () {
-
-                            resolve();
-
-                        } );
-                        deferredSending.catch( function ( errorMessage ) {
-
-                            $log.error( errorMessage );
+                            apiService.catchApiUnavailable( deferredQuery );
 
                         } );
 
-                        apiService.catchApiUnavailable( deferredSending );
+                    };
 
-                    } );
 
-                };
+                    apiService.sendMessage = function ( messageText ) {
 
-            } );
+                        return $q( function ( resolve, reject ) {
+
+                            if ( ! userTokenService.get() ) return reject( new Error( 'Token is not defined!' ) );
+
+                            var messageToSend = new Messages();
+                            messageToSend.text = messageText;
+
+                            var deferredSending = messageToSend.$send();
+
+                            deferredSending.then( function () {
+
+                                resolve();
+
+                            } );
+                            deferredSending.catch( function ( errorMessage ) {
+
+                                $log.error( errorMessage );
+
+                            } );
+
+                            apiService.catchApiUnavailable( deferredSending );
+
+                        } );
+
+                    };
+
+                } ] );
 
     }
 );

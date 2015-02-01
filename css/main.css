@@ -211,3 +211,11 @@ body {
     transform: rotate(180deg);
   }
 }
+/* font-family: "CleanvertisingLight"; */
+@font-face {
+  font-family: "Cleanvertising";
+  src: url("../fonts/CleanvertisingLight.eot");
+  src: url("../fonts/CleanvertisingLight.eot?#iefix") format("embedded-opentype"), url("../fonts/CleanvertisingLight.woff") format("woff"), url("../fonts/CleanvertisingLight.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
