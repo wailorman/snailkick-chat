@@ -27,7 +27,7 @@ body {
         z-index: 100;
         position: absolute;
         height: @client-bar-height;
-        width: @chat-box-width;
+        width: inherit;
 
         color: white;
 
@@ -80,7 +80,7 @@ body {
 
         position: absolute;
         //        height: 100%;
-        width: @chat-box-width;
+        width: inherit;
 
         //        padding-bottom: @typing-box-height;
 
@@ -105,11 +105,10 @@ body {
         .message {
 
             float: left;
-
             margin: 10px 0;
             padding: 0 10px;
-
-            width: 100%;
+            width: inherit;
+            display: table;
 
             .avatar {
 
@@ -119,14 +118,18 @@ body {
                 float: left;
                 background-size: cover;
                 background-position: center;
+                display: table-cell;
 
             }
 
             .message-content-box {
 
-                font: 11pt 'Cleanvertising';
-                padding-left: @avatar-width + 13px;
-                width: 100%;
+                font: 11pt 'Cleanvertising', 'Helvetica', 'Arial';
+                padding-left: 15px;
+                width: inherit;
+                display: table-cell;
+                vertical-align: middle;
+                height: inherit;
 
                 .message-title {
 
@@ -161,13 +164,14 @@ body {
     .typing-box {
 
         position: absolute;
-        height: @typing-box-height;
+        height: 50px;
         width: inherit;
-
         background-color: rgba(0, 0, 0, 0.25);
+        bottom: 0;
+        display: table;
 
         .text, .text:focus {
-            width: 300px;
+            width: 100%;
             height: inherit;
             border: none;
             background: none;
@@ -175,24 +179,23 @@ body {
             color: white;
             font: 12pt 'Cleanvertising';
             outline: none;
+            display: table-cell;
         }
 
         .send-button {
-            display: inline-block;
+
             height: @typing-box-height;
             width: @typing-box-height;
-            float: right;
             background: url('../images/send.png') no-repeat center;
             background-size: 40%;
             opacity: 0.7;
+            display: table-cell;
 
             &:hover {
                 opacity: 1;
                 cursor: pointer;
             }
         }
-
-        bottom: 0;
 
     }
 

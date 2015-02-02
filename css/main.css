@@ -13,7 +13,7 @@ body {
   z-index: 100;
   position: absolute;
   height: 60px;
-  width: 350px;
+  width: inherit;
   color: white;
   font: 12pt 'Cleanvertising';
 }
@@ -46,7 +46,7 @@ body {
 }
 .snailkick-chat-box .messages-list {
   position: absolute;
-  width: 350px;
+  width: inherit;
   top: 60px;
   bottom: 50px;
   overflow-y: scroll;
@@ -64,7 +64,8 @@ body {
   float: left;
   margin: 10px 0;
   padding: 0 10px;
-  width: 100%;
+  width: inherit;
+  display: table;
 }
 .snailkick-chat-box .messages-list .message .avatar {
   border-radius: 30px;
@@ -73,11 +74,15 @@ body {
   float: left;
   background-size: cover;
   background-position: center;
+  display: table-cell;
 }
 .snailkick-chat-box .messages-list .message .message-content-box {
-  font: 11pt 'Cleanvertising';
-  padding-left: 63px;
-  width: 100%;
+  font: 11pt 'Cleanvertising', 'Helvetica', 'Arial';
+  padding-left: 15px;
+  width: inherit;
+  display: table-cell;
+  vertical-align: middle;
+  height: inherit;
 }
 .snailkick-chat-box .messages-list .message .message-content-box .message-title {
   height: 15px;
@@ -101,10 +106,11 @@ body {
   width: inherit;
   background-color: rgba(0, 0, 0, 0.25);
   bottom: 0;
+  display: table;
 }
 .snailkick-chat-box .typing-box .text,
 .snailkick-chat-box .typing-box .text:focus {
-  width: 300px;
+  width: 100%;
   height: inherit;
   border: none;
   background: none;
@@ -112,15 +118,15 @@ body {
   color: white;
   font: 12pt 'Cleanvertising';
   outline: none;
+  display: table-cell;
 }
 .snailkick-chat-box .typing-box .send-button {
-  display: inline-block;
   height: 50px;
   width: 50px;
-  float: right;
   background: url('../images/send.png') no-repeat center;
   background-size: 40%;
   opacity: 0.7;
+  display: table-cell;
 }
 .snailkick-chat-box .typing-box .send-button:hover {
   opacity: 1;
