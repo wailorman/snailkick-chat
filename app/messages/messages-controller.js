@@ -79,6 +79,16 @@ define(
                     $scope.logout = userClientService.logout;
                     $scope.redirectToVkAuthPage = userClientService.redirectToVkAuthPage;
 
+                    $scope.onKeyPress = function ($event) {
+
+                        if ( $event.keyCode == 13 ){
+
+                            $scope.sendMessage();
+
+                        }
+
+                    };
+
                     ///////////////////////////////////////////
                     // ON LOADING
                     ///////////////////////////////////////////
