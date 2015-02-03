@@ -5,9 +5,10 @@ define(
         'angular-resource',
         'angular-cookies',
         'angular-scroll-glue',
-        'angular-local-storage'
+        'angular-local-storage',
+        'angular-bootstrap-tpls'
     ],
-    function ( angular ){
+    function ( angular ) {
 
         //console.log( 'app' );
 
@@ -16,7 +17,8 @@ define(
             'ngResource',
             'ngCookies',
             'luegg.directives',
-            'LocalStorageModule'
+            'LocalStorageModule',
+            'ui.bootstrap'
         ] );
 
     }

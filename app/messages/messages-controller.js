@@ -19,20 +19,13 @@ define(
                     // Variables
                     ///////////////////////////////
                     $scope.messageToSend = '';
-                    //$scope.chatBoxState = boxStateService.state;
-                    //$scope.userClient = userClientService.clientInfo;
-                    //$scope.messages = messagesService.messages;
-                    //$scope.clients = clientsService.clients;
+
+                    $scope.statusesDescription = {
+                        elf: 'Эльф-помощник',
+                        king: 'Хозяин'
+                    };
 
 
-                    ////////////////////////////////
-                    // Listeners
-                    ////////////////////////////////
-
-                    //$rootScope.$on( 'messagesService:messages update', updateMessages );
-                    //$rootScope.$on( 'clientsService:cache update', updateClientsCache );
-                    //$rootScope.$on( 'userClientService:upd', updateUserClientInfo );
-                    //$rootScope.$on( 'boxStateService:upd', updateChatBoxState );
 
                     $scope.$watchGroup(
                         [

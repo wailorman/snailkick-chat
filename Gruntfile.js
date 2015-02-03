@@ -80,6 +80,14 @@ module.exports = function ( grunt ) {
                     'built/app.build.min.js': [ 'built/app.build.js' ]
                 }
             }
+        },
+
+        cssUrlEmbed: {
+            encodeDirectly: {
+                files: {
+                    'built/build.css': ['built/build.css']
+                }
+            }
         }
 
     } );
@@ -93,7 +101,8 @@ module.exports = function ( grunt ) {
     grunt.loadNpmTasks( 'grunt-ng-annotate' );
     grunt.loadNpmTasks( 'grunt-ngmin' );
     grunt.loadNpmTasks( 'grunt-contrib-uglify' );
+    grunt.loadNpmTasks( 'grunt-css-url-embed' );
 
-    grunt.task.registerTask( 'default', [ 'requirejs', 'less', 'copy', 'cssmin', 'htmlbuild', 'ngmin' ] );
+    grunt.task.registerTask( 'default', [ 'requirejs', 'less', 'copy', 'cssmin', 'htmlbuild', 'cssUrlEmbed' ] );
 
 };
