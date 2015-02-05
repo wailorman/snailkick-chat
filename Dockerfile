@@ -7,6 +7,8 @@ RUN apt-get update && \
 RUN mkdir /tmp/www && \
     mkdir /var/www
 
+VOLUME ["/var/www"]
+
 ADD . /tmp/www
 
 WORKDIR /tmp/www
@@ -14,6 +16,5 @@ WORKDIR /tmp/www
 RUN npm install --unsafe-perm
 
 RUN rm -rf /var/www/* && \
-    cp -avr /tmp/www/built/ /var/www
+    cp -avr /tmp/www/built/* /var/www
 
-VOLUME ["/var/www"]
