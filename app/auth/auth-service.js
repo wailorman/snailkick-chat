@@ -33,16 +33,10 @@ define(
 
                     };
 
-                    authService.redirectToVkAuthPage = function () {
-
-                        $window.location.href = vkAuthPage;
-
-                    };
-
                     authService.logout = function () {
 
                         $cookieStore.remove( 'token' );
-                        $window.location.reload();
+                        document.location.reload();
 
                     };
 
@@ -83,7 +77,7 @@ define(
                 '$q', '$rootScope', '$log', '$window', '$location', 'userTokenService', 'apiService',
                 function ( $q, $rootScope, $log, $window, $location, userTokenService, apiService ) {
 
-                    console.log( "" + $window.location + " ." );
+                    console.log( "" + document.location.origin + " ." );
 
                     var userClientService = this;
 
@@ -142,7 +136,7 @@ define(
 
                     userClientService.redirectToVkAuthPage = function () {
 
-                        $window.location.href = apiService.apiUrl + '/auth/vk?rto=' + $window.location;
+                        document.location.href = apiService.apiUrl + '/auth/vk?rto=' + document.location.origin;
 
                     };
 

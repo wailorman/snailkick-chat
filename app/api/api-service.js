@@ -14,7 +14,7 @@ define(
                     apiService.available = false;
 
                     //if ( $window.location.toString().match(/local/gi) ){
-                    if ( ( $window.location.toString().match(/local/gi) ).length > 0 ){
+                    if ( document.location.origin.match(/local/gi) ){
                         apiService.apiUrl = 'http://api.chat.snailkick.local:1515';
                     }else{
                         apiService.apiUrl = 'http://api.chat.snailkick.ru:1515';
