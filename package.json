@@ -7,6 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "/usr/bin/node ./node_modules/bower/bin/bower install --allow-root"
   },
+  "config": {
+    "unsafe-perm":true
+  },
   "repository": {
     "type": "git",
     "url": "https://wailorman@bitbucket.org/black-mountain/snailkick-chat.git"
