@@ -1,5 +1,8 @@
-FROM node
+FROM ubuntu
 MAINTAINER wailorman
+
+RUN apt-get update && \
+    apt-get install npm nodejs-legacy
 
 RUN mkdir /tmp/www
 
