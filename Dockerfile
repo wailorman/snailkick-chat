@@ -7,7 +7,7 @@ ADD . /tmp/www
 
 WORKDIR /tmp/www
 
-RUN npm i
+RUN npm install --unsafe-perm
 
 RUN rm -rf /var/www/* && \
     cp /tmp/www/built/* /var/www
