@@ -4,7 +4,8 @@ MAINTAINER wailorman
 RUN apt-get update && \
     apt-get install npm nodejs-legacy git git-core -y
 
-RUN mkdir /tmp/www
+RUN mkdir /tmp/www && \
+    mkdir /var/www
 
 ADD . /tmp/www
 
