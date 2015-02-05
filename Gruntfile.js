@@ -34,7 +34,7 @@ module.exports = function ( grunt ) {
         cssmin: {
             stable: {
                 files: {
-                    'built/build.css': [ 'bower_components/bootstrap/dist/css/bootstrap.min.css', 'css/main.css' ]
+                    'built/build.css': [ 'bower_components/bootstrap/dist/css/bootstrap.min.css', 'built/main.embed.css' ]
                 }
             }
         },
@@ -85,9 +85,15 @@ module.exports = function ( grunt ) {
         cssUrlEmbed: {
             encodeDirectly: {
                 files: {
-                    'built/build.css': ['built/build.css']
+                    'built/main.embed.css': ['css/main.css']
                 }
             }
+        },
+
+        clean: {
+            built: [
+                'built/main.embed.css'
+            ]
         }
 
     } );
@@ -103,6 +109,6 @@ module.exports = function ( grunt ) {
     grunt.loadNpmTasks( 'grunt-contrib-uglify' );
     grunt.loadNpmTasks( 'grunt-css-url-embed' );
 
-    grunt.task.registerTask( 'default', [ 'requirejs', 'less', 'copy', 'cssmin', 'htmlbuild', 'cssUrlEmbed' ] );
+    grunt.task.registerTask( 'default', [ 'requirejs', 'less', 'cssUrlEmbed', 'cssmin', 'clean' ] );
 
 };
