@@ -6,19 +6,25 @@ define(
 
         return app
             .service( 'apiService', [
-                '$resource', '$rootScope', '$q', '$log', '$http', '$cookies', '$location', 'authService', 'userTokenService',
-                function ( $resource, $rootScope, $q, $log, $http, $cookies, $location, authService, userTokenService ) {
+                '$resource', '$rootScope', '$q', '$log', '$http', '$cookies', '$location', '$window', 'authService', 'userTokenService',
+                function ( $resource, $rootScope, $q, $log, $http, $cookies, $location, $window, authService, userTokenService ) {
 
                     var apiService = this;
 
                     apiService.available = false;
-                    var apiAddress = 'http://api.chat.snailkick.ru:1515';
 
-                    var Messages = $resource( apiAddress + '/messages', {}, {
+                    //if ( $window.location.toString().match(/local/gi) ){
+                    if ( ( $window.location.toString().match(/local/gi) ).length > 0 ){
+                        apiService.apiUrl = 'http://api.chat.snailkick.local:1515';
+                    }else{
+                        apiService.apiUrl = 'http://api.chat.snailkick.ru:1515';
+                    }
+
+                    var Messages = $resource( apiService.apiUrl + '/messages', {}, {
                         query: { method: 'GET', isArray: true },
                         send:  { method: 'POST', isArray: false, params: { 'token': userTokenService.get() } }
                     } );
-                    var Client = $resource( apiAddress + '/clients/:idOrToken' );
+                    var Client = $resource( apiService.apiUrl + '/clients/:idOrToken' );
 
                     apiService.changeApiAvailability = function ( state ) {
 

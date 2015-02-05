@@ -14,8 +14,6 @@ define(
 
                     var authService = this;
 
-                    var vkAuthPage = 'http://api.chat.snailkick.ru/:1515/auth/vk';
-
                     /** @namespace $cookies.token */
 
                         //////////////////////////////
@@ -85,6 +83,8 @@ define(
                 '$q', '$rootScope', '$log', '$window', '$location', 'userTokenService', 'apiService',
                 function ( $q, $rootScope, $log, $window, $location, userTokenService, apiService ) {
 
+                    console.log( "" + $window.location + " ." );
+
                     var userClientService = this;
 
                     //////////////////////////
@@ -142,7 +142,7 @@ define(
 
                     userClientService.redirectToVkAuthPage = function () {
 
-                        $window.location.href = 'http://api.chat.snailkick.ru:1515/auth/vk';
+                        $window.location.href = apiService.apiUrl + '/auth/vk?rto=' + $window.location;
 
                     };
 
