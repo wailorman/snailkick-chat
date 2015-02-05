@@ -2,7 +2,7 @@ FROM ubuntu
 MAINTAINER wailorman
 
 RUN apt-get update && \
-    apt-get install npm nodejs-legacy
+    apt-get install npm nodejs-legacy -y
 
 RUN mkdir /tmp/www
 
