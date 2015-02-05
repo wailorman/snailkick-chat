@@ -14,6 +14,6 @@ WORKDIR /tmp/www
 RUN npm install --unsafe-perm
 
 RUN rm -rf /var/www/* && \
-    cp /tmp/www/built/* /var/www
+    cp -avr /tmp/www/built/ /var/www
 
 VOLUME ["/var/www"]
