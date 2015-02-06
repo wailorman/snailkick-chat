@@ -15,5 +15,5 @@ WORKDIR /tmp/www
 
 RUN npm install --unsafe-perm && \
     rm -rf /var/www/* && \
-    cp -avr /tmp/www/built/* /var/www
+    mv /tmp/www/built/ /var/www
 
