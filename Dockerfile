@@ -7,13 +7,12 @@ RUN apt-get update && \
 RUN mkdir /tmp/www && \
     mkdir /var/www
 
-
-
 COPY . /tmp/www
 
 WORKDIR /tmp/www
 
-RUN npm install --unsafe-perm && \
-    rm -rf /var/www/* && \
-    mv /tmp/www/built/ /var/www
+RUN npm install --unsafe-perm
 
+CMD cp -avr /tmp/www/built/* /var/www
+
+VOLUME ["/var/www"]
