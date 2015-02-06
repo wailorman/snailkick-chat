@@ -9,7 +9,7 @@ RUN mkdir /tmp/www && \
 
 VOLUME ["/var/www"]
 
-ADD . /tmp/www
+COPY . /tmp/www
 
 WORKDIR /tmp/www
 
