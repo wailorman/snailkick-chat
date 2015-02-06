@@ -4,8 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "/usr/bin/node ./node_modules/bower/bin/bower install --allow-root && /usr/bin/node ./node_modules/grunt-cli/bin/grunt"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "config": {
     "unsafe-perm":true
