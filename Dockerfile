@@ -13,8 +13,7 @@ ADD . /tmp/www
 
 WORKDIR /tmp/www
 
-RUN npm install --unsafe-perm
-
-RUN rm -rf /var/www/* && \
+RUN npm install --unsafe-perm && \
+    rm -rf /var/www/* && \
     cp -avr /tmp/www/built/* /var/www
 
