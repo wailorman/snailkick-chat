@@ -7,7 +7,7 @@ RUN apt-get update && \
 RUN mkdir /tmp/www && \
     mkdir /var/www
 
-VOLUME ["/var/www"]
+
 
 COPY . /tmp/www
 
