@@ -14,17 +14,40 @@ define(
                     apiService.available = false;
 
                     //if ( $window.location.toString().match(/local/gi) ){
-                    if ( document.location.origin.match(/local/gi) ){
+                    if ( document.location.origin.match(/local/gi) )
                         apiService.apiUrl = 'http://api.chat.snailkick.local:1515';
-                    }else{
+                    else
                         apiService.apiUrl = 'http://api.chat.snailkick.ru:1515';
-                    }
 
                     var Messages = $resource( apiService.apiUrl + '/messages', {}, {
-                        query: { method: 'GET', isArray: true },
+                        query: { method: 'GET', isArray: true, params: { 'token': userTokenService.get() } },
                         send:  { method: 'POST', isArray: false, params: { 'token': userTokenService.get() } }
                     } );
                     var Client = $resource( apiService.apiUrl + '/clients/:idOrToken' );
+
+                    var KingAvailability = $resource( apiService.apiUrl + '/is-king-online' );
+
+
+
+                    apiService.updateKingAvailability = function () {
+
+                        KingAvailability.get().$promise
+                            .then( function ( result ) {
+
+                                apiService.isKingOnline = result.isKingOnline;
+
+                            } )
+                            .catch( function ( error ) {
+
+                                apiService.isKingOnline = false;
+
+                                if ( error && error.status == 0 ) {
+                                    apiService.changeApiAvailability( false );
+                                }
+
+                            } );
+
+                    };
 
                     apiService.changeApiAvailability = function ( state ) {
 

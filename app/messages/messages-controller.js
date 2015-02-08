@@ -12,8 +12,8 @@ define(
         return app
             .controller( 'MessagesController',
             [
-                '$scope', '$rootScope', '$q', '$log', 'messagesService', 'clientsService', 'userClientService', 'boxStateService',
-                function ( $scope, $rootScope, $q, $log, messagesService, clientsService, userClientService, boxStateService ) {
+                '$scope', '$rootScope', '$q', '$log', 'apiService', 'messagesService', 'clientsService', 'userClientService', 'boxStateService',
+                function ( $scope, $rootScope, $q, $log, apiService, messagesService, clientsService, userClientService, boxStateService ) {
 
                     ///////////////////////////////
                     // Variables
@@ -25,7 +25,13 @@ define(
                         king: 'Хозяин'
                     };
 
-
+                    var updateScope = function () {
+                        $scope.chatBoxState = boxStateService.state;
+                        $scope.userClient = userClientService.clientInfo;
+                        $scope.messages = messagesService.messages.clone().reverse();
+                        $scope.clients = clientsService.clients;
+                        $scope.setKingAvailability( apiService.isKingOnline );
+                    };
 
                     $scope.$watchGroup(
                         [
@@ -40,16 +46,12 @@ define(
                             },
                             function () {
                                 return clientsService.clients;
+                            },
+                            function () {
+                                return apiService.isKingOnline;
                             }
                         ],
-                        function () {
-
-                            $scope.chatBoxState = boxStateService.state;
-                            $scope.userClient = userClientService.clientInfo;
-                            $scope.messages = messagesService.messages.clone().reverse();
-                            $scope.clients = clientsService.clients;
-
-                        }
+                        updateScope
                     );
 
                     ///////////////////////////////////////////
@@ -77,6 +79,25 @@ define(
                         if ( $event.keyCode == 13 ){
 
                             $scope.sendMessage();
+
+                        }
+
+                    };
+
+                    $scope.setKingAvailability = function ( isOnline ) {
+
+                        if ( isOnline ){
+
+                            $scope.isKingOnline = true;
+                            $scope.showKingOnlineBar = true;
+
+                        }else{
+
+                            $scope.isKingOnline = false;
+                            $scope.showKingOnlineBar = true;
+                            setTimeout( function () {
+                                $scope.showKingOnlineBar = false;
+                            }, 4000 );
 
                         }
 

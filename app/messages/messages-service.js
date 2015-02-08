@@ -198,10 +198,21 @@ define(
 
                     };
 
+                    messagesService.startKingAvailabilityCheckerInterval = function () {
+
+                        messagesService.kingAvailabilityCheckerInterval = setInterval( function () {
+
+                            apiService.updateKingAvailability();
+
+                        }, 3000 );
+
+                    };
+
 
                     //////////////////////////////////////////////
 
                     messagesService.startRefreshInterval();
+                    messagesService.startKingAvailabilityCheckerInterval();
 
                     //messagesService.refresh();
 
