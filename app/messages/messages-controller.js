@@ -86,6 +86,8 @@ define(
 
                     $scope.setKingAvailability = function ( isOnline ) {
 
+                        if ( $scope.isKingOnline == isOnline ) return false;
+
                         if ( isOnline ){
 
                             $scope.isKingOnline = true;
