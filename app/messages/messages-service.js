@@ -72,7 +72,7 @@ define(
 
                         function beautifyUrl( url ) {
 
-                            var urlWithoutProtocol = url.match( /((www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/ig )
+                            var urlWithoutProtocol = url.match( /((www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/ig );
 
                             return decodeURIComponent( urlWithoutProtocol );
 
@@ -92,26 +92,44 @@ define(
                                     // Message parse
                                     ////////////////////
 
+                                    // time ////////////////////////////////////////
+
                                     message.posted = new Date( message.posted );
 
-                                    message.viewPostedTime = message.posted.getHours() + ':' +
-                                                             ( message.posted.getMinutes() < 10 ? "0" : "" ) + message.posted.getMinutes();
+                                    message.viewPostedTime = message.posted.getHours() + ':' + ( message.posted.getMinutes() < 10 ? "0" :
+                                        "" ) + message.posted.getMinutes();
 
-                                    // href
+                                    // href ///////////////////////////////////////
 
-                                    var newMessageText, foundUrl;
+                                    // find urls
+                                    var urls = message.text.match( /((https?:\/\/)[a-zA-Z\.\/\?!@#\$%&_\-=\+;{}0-9]+)/ig );  // with http
+                                    if ( ! urls ) urls = message.text.match( /([a-zA-Z]+\.(ru|com|org|net|ua|kz))/ig ); // without http
 
-                                    // messages with protocol
-                                    message.text.replace( /(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/ig, function ( str, p1, p2, offset, s ) {
+                                    if ( urls ) {
+                                        urls.forEach( function ( foundedUrlString ) {
 
-                                        foundUrl = str;
+                                            var changedUrl = foundedUrlString,
+                                                shortenUrl;
 
-                                        beautifyUrl( foundUrl )
+                                            // get shorten url
+                                            shortenUrl = ( changedUrl.match( /(https?:\/\/)?([a-zA-Z\.\/\?!@#\$%&_\-=\+;{}0-9]+)/ig ) )[ 0 ];
+                                            shortenUrl = shortenUrl.slice( 0, 29 );
+                                            if ( changedUrl.length > 30 ) shortenUrl += "...";
 
-                                    } );
+                                            // add http
+                                            if ( ! changedUrl.match( /(https?:\/\/)/ig ) ) {
+                                                changedUrl = 'http://' + changedUrl;
+                                            }
+
+                                            // replace url to <a href=...>
+                                            message.text = message.text.replace( foundedUrlString, '<a href="' + changedUrl + '">' + shortenUrl + '</a>' );
 
 
+                                        } );
 
+                                    }
+
+                                    ///////////////////////////////////////////////
 
                                     clientsForCaching.push( message.client );
 

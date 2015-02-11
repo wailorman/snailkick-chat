@@ -6,7 +6,8 @@ define(
         'angular-cookies',
         'angular-scroll-glue',
         'angular-local-storage',
-        'angular-bootstrap-tpls'
+        'angular-bootstrap-tpls',
+        'angular-sanitize'
     ],
     function ( angular ) {
 
@@ -18,7 +19,8 @@ define(
             'ngCookies',
             'luegg.directives',
             'LocalStorageModule',
-            'ui.bootstrap'
+            'ui.bootstrap',
+            'ngSanitize'
         ] );
 
     }
