@@ -9,6 +9,7 @@ require.config( {
         'angular-local-storage':  'bower_components/angular-local-storage/dist/angular-local-storage',
         'angular-bootstrap':      'bower_components/angular-bootstrap/ui-bootstrap',
         'angular-bootstrap-tpls': 'bower_components/angular-bootstrap/ui-bootstrap-tpls',
+        'angular-sanitize':       'bower_components/angular-sanitize/angular-sanitize.min',
         'async':                  'bower_components/async/lib/async',
         'sugar':                  'bower_components/sugarjs/release/sugar.min',
 
@@ -33,11 +34,12 @@ require.config( {
             deps:    [ 'jquery' ]
         },
 
-        'angular-route':       [ 'angular' ],
-        'angular-resource':    [ 'angular' ],
-        'angular-cookies':     [ 'angular' ],
-        'angular-scroll-glue': [ 'angular' ],
-        'angular-bootstrap-tpls':   [ 'angular' ],
+        'angular-route':          [ 'angular' ],
+        'angular-resource':       [ 'angular' ],
+        'angular-cookies':        [ 'angular' ],
+        'angular-scroll-glue':    [ 'angular' ],
+        'angular-bootstrap-tpls': [ 'angular' ],
+        'angular-sanitize':       [ 'angular' ],
 
         'app': [ 'angular' ]
     }

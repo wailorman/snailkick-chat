@@ -70,9 +70,17 @@ define(
                      */
                     messagesService.parseMessages = function ( messages ) {
 
+                        function beautifyUrl( url ) {
+
+                            var urlWithoutProtocol = url.match( /((www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/ig );
+
+                            return decodeURIComponent( urlWithoutProtocol );
+
+                        }
+
                         return $q( function ( resolve, reject ) {
 
-                            var clientsToCache = [];
+                            var clientsForCaching = [];
 
                             if ( ! messages ) messages = messagesService.messages;
 
@@ -80,23 +88,63 @@ define(
                                 messages,
                                 function ( message, ecb ) {
 
+                                    ////////////////////
+                                    // Message parse
+                                    ////////////////////
+
+                                    // time ////////////////////////////////////////
+
                                     message.posted = new Date( message.posted );
 
-                                    message.viewPostedTime = message.posted.getHours() + ':' +
-                                                             ( message.posted.getMinutes() < 10 ? "0" : "" ) + message.posted.getMinutes();
+                                    message.viewPostedTime = message.posted.getHours() + ':' + ( message.posted.getMinutes() < 10 ? "0" :
+                                        "" ) + message.posted.getMinutes();
 
-                                    clientsToCache.push( message.client );
+                                    // href ///////////////////////////////////////
+
+                                    // find urls
+                                    var urls = message.text.match( /((https?:\/\/)[a-zA-Z\.\/\?!@#\$%&_\-=\+;{}0-9]+)/ig );  // with http
+                                    if ( ! urls ) urls = message.text.match( /([a-zA-Z]+\.(ru|com|org|net|ua|kz))/ig ); // without http
+
+                                    if ( urls ) {
+                                        urls.forEach( function ( foundedUrlString ) {
+
+                                            var changedUrl = foundedUrlString,
+                                                shortenUrl;
+
+                                            // get shorten url
+                                            shortenUrl = ( changedUrl.match( /(https?:\/\/)?([a-zA-Z\.\/\?!@#\$%&_\-=\+;{}0-9]+)/ig ) )[ 0 ];
+                                            shortenUrl = shortenUrl.slice( 0, 29 );
+                                            if ( changedUrl.length > 30 ) shortenUrl += "...";
+
+                                            // add http
+                                            if ( ! changedUrl.match( /(https?:\/\/)/ig ) ) {
+                                                changedUrl = 'http://' + changedUrl;
+                                            }
+
+                                            // replace url to <a href=...>
+                                            message.text = message.text.replace( foundedUrlString, '<a href="' + changedUrl + '">' + shortenUrl + '</a>' );
+
+
+                                        } );
+
+                                    }
+
+                                    ///////////////////////////////////////////////
+
+                                    clientsForCaching.push( message.client );
 
                                     ecb();
+
+                                    ////////////////////
 
                                 },
                                 function () {
 
                                     // Cache clients
-                                    clientsToCache = clientsToCache.unique();
+                                    clientsForCaching = clientsForCaching.unique();
 
                                     async.each(
-                                        clientsToCache,
+                                        clientsForCaching,
                                         function ( clientId, ecb ) {
 
                                             clientsService.cacheClient( clientId );

@@ -116,6 +116,14 @@
   color: white;
   font: 12pt 'Cleanvertising';
 }
+.snailkick-chat-box .messages-list .message a {
+  color: #D9CCFF;
+  text-decoration: underline;
+}
+.snailkick-chat-box .messages-list .message a:hover {
+  color: #8c82ae;
+  text-decoration: none;
+}
 .snailkick-chat-box .messages-list .king-online-bar {
   color: white;
   font: 12pt 'Cleanvertising';
