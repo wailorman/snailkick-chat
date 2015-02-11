@@ -70,9 +70,17 @@ define(
                      */
                     messagesService.parseMessages = function ( messages ) {
 
+                        function beautifyUrl( url ) {
+
+                            var urlWithoutProtocol = url.match( /((www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/ig )
+
+                            return decodeURIComponent( urlWithoutProtocol );
+
+                        }
+
                         return $q( function ( resolve, reject ) {
 
-                            var clientsToCache = [];
+                            var clientsForCaching = [];
 
                             if ( ! messages ) messages = messagesService.messages;
 
@@ -80,23 +88,45 @@ define(
                                 messages,
                                 function ( message, ecb ) {
 
+                                    ////////////////////
+                                    // Message parse
+                                    ////////////////////
+
                                     message.posted = new Date( message.posted );
 
                                     message.viewPostedTime = message.posted.getHours() + ':' +
                                                              ( message.posted.getMinutes() < 10 ? "0" : "" ) + message.posted.getMinutes();
 
-                                    clientsToCache.push( message.client );
+                                    // href
+
+                                    var newMessageText, foundUrl;
+
+                                    // messages with protocol
+                                    message.text.replace( /(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/ig, function ( str, p1, p2, offset, s ) {
+
+                                        foundUrl = str;
+
+                                        beautifyUrl( foundUrl )
+
+                                    } );
+
+
+
+
+                                    clientsForCaching.push( message.client );
 
                                     ecb();
+
+                                    ////////////////////
 
                                 },
                                 function () {
 
                                     // Cache clients
-                                    clientsToCache = clientsToCache.unique();
+                                    clientsForCaching = clientsForCaching.unique();
 
                                     async.each(
-                                        clientsToCache,
+                                        clientsForCaching,
                                         function ( clientId, ecb ) {
 
                                             clientsService.cacheClient( clientId );
