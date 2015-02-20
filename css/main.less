@@ -5,6 +5,14 @@
 @message-margin-vertical: 13px;
 @message-width: @chat-box-width - @avatar-width - @message-margin-horizontal*2 - 10;
 
+
+@font-face {
+    font-family: "Apple Color Emoji";
+    src: url('../fonts/Apple%20Color%20Emoji.ttf') format('ttf');
+    font-style: normal;
+}
+
+
 .snailkick-chat-box {
 
     width: @chat-box-width;
@@ -66,6 +74,27 @@
                 text-decoration: underline;
                 cursor: pointer;
             }
+
+        }
+
+        .king-online-bar {
+
+            color: white;
+            font: 12pt 'Cleanvertising';
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.45);
+            overflow: hidden;
+
+            //            opacity: 0;
+
+            position: absolute;
+
+            width: inherit;
+            padding: 10px;
+
+            transition: all 1s;
+
+            bottom: -38px;
 
         }
 
@@ -174,7 +203,7 @@
                 .message-text {
                     margin-top: 5px;
                     color: white;
-                    font: 12pt 'Cleanvertising';
+                    font: 12pt "Apple Color Emoji", 'Cleanvertising';
                 }
 
             }
@@ -187,25 +216,6 @@
                     text-decoration: none;
                 }
             }
-
-        }
-
-        .king-online-bar {
-
-            color: white;
-            font: 12pt 'Cleanvertising';
-            text-align: center;
-            background-color: rgba(0, 0, 0, 0.45);
-            overflow: hidden;
-
-//            opacity: 0;
-
-            position: absolute;
-
-            width: inherit;
-            padding: 10px;
-
-            transition: all 1s;
 
         }
 
@@ -229,7 +239,7 @@
             background: none;
             padding: 15px;
             color: white;
-            font: 12pt 'Cleanvertising';
+            font: 12pt "Apple Color Emoji", 'Cleanvertising';
             outline: none;
             display: table-cell;
         }

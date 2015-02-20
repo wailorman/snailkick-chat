@@ -99,6 +99,11 @@ define(
                                     message.viewPostedTime = message.posted.getHours() + ':' + ( message.posted.getMinutes() < 10 ? "0" :
                                         "" ) + message.posted.getMinutes();
 
+
+                                    // html tags //////////////////////////////////
+
+                                    message.text = (message.text).replace(/<\/?[^>]+(>|$)/g, "");
+
                                     // href ///////////////////////////////////////
 
                                     // find urls
@@ -139,6 +144,17 @@ define(
 
                                 },
                                 function () {
+
+                                    // Delete empty messages
+
+                                    messages.each( function ( currentMessage, index ) {
+                                        if ( currentMessage.text.isBlank() ) {
+                                            //messages[ index ].text = '2345';
+                                            //console.log( index + ' is empty!' );
+                                            //delete messages[ index ];
+                                            messages.splice( index, 1 );
+                                        }
+                                    } );
 
                                     // Cache clients
                                     clientsForCaching = clientsForCaching.unique();

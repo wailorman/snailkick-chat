@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Apple Color Emoji";
+  src: url('../fonts/Apple%20Color%20Emoji.ttf') format('ttf');
+  font-style: normal;
+}
 .snailkick-chat-box {
   width: 350px;
   height: 100%;
@@ -39,6 +44,18 @@
 .snailkick-chat-box .client-bar .logout:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+.snailkick-chat-box .client-bar .king-online-bar {
+  color: white;
+  font: 12pt 'Cleanvertising';
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  position: absolute;
+  width: inherit;
+  padding: 10px;
+  transition: all 1s;
+  bottom: -38px;
 }
 .snailkick-chat-box .messages-list {
   position: absolute;
@@ -114,7 +131,7 @@
 .snailkick-chat-box .messages-list .message .message-content-box .message-text {
   margin-top: 5px;
   color: white;
-  font: 12pt 'Cleanvertising';
+  font: 12pt "Apple Color Emoji", 'Cleanvertising';
 }
 .snailkick-chat-box .messages-list .message a {
   color: #D9CCFF;
@@ -123,17 +140,6 @@
 .snailkick-chat-box .messages-list .message a:hover {
   color: #8c82ae;
   text-decoration: none;
-}
-.snailkick-chat-box .messages-list .king-online-bar {
-  color: white;
-  font: 12pt 'Cleanvertising';
-  text-align: center;
-  background-color: rgba(0, 0, 0, 0.45);
-  overflow: hidden;
-  position: absolute;
-  width: inherit;
-  padding: 10px;
-  transition: all 1s;
 }
 .snailkick-chat-box .typing-box {
   position: absolute;
@@ -151,7 +157,7 @@
   background: none;
   padding: 15px;
   color: white;
-  font: 12pt 'Cleanvertising';
+  font: 12pt "Apple Color Emoji", 'Cleanvertising';
   outline: none;
   display: table-cell;
 }
