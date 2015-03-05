@@ -22,7 +22,8 @@ define(
 
                     $scope.statusesDescription = {
                         elf: 'Эльф-помощник',
-                        king: 'Хозяин'
+                        king: 'Хозяин',
+                        queen: 'Госпожа'
                     };
 
                     var updateScope = function () {

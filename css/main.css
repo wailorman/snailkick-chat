@@ -1,8 +1,8 @@
 .snailkick-chat-box {
-  width: 350px;
+  width: inherit;
   height: 100%;
   float: left;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 .snailkick-chat-box .client-bar {
   background-color: rgba(0, 0, 0, 0.25);
@@ -11,7 +11,7 @@
   height: 60px;
   width: inherit;
   color: white;
-  font: 12pt 'Cleanvertising';
+  font: 12pt 'Cleanvertising', sans-serif;
 }
 .snailkick-chat-box .client-bar .avatar {
   background-size: contain;
@@ -30,6 +30,9 @@
   float: left;
   padding: 20px 10px;
 }
+.snailkick-chat-box .client-bar .name a {
+  color: white;
+}
 .snailkick-chat-box .client-bar .logout {
   display: inline-block;
   float: right;
@@ -42,7 +45,7 @@
 }
 .snailkick-chat-box .client-bar .king-online-bar {
   color: white;
-  font: 12pt 'Cleanvertising';
+  font: 12pt 'Cleanvertising', sans-serif;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.45);
   overflow: hidden;
@@ -59,6 +62,9 @@
   bottom: 50px;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+.snailkick-chat-box .messages-list.show-king-bar {
+  top: 98px;
 }
 .snailkick-chat-box .messages-list::-webkit-scrollbar {
   display: none;
@@ -85,7 +91,7 @@
   display: table-cell;
 }
 .snailkick-chat-box .messages-list .message .message-content-box {
-  font: 11pt 'Cleanvertising', 'Helvetica', 'Arial';
+  font: 11pt 'Cleanvertising', sans-serif;
   padding-left: 15px;
   width: inherit;
   display: table-cell;
@@ -98,6 +104,13 @@
 .snailkick-chat-box .messages-list .message .message-content-box .message-title .client-name {
   color: #bdffba;
   float: left;
+}
+.snailkick-chat-box .messages-list .message .message-content-box .message-title .client-name a {
+  color: #bdffba;
+  text-decoration: none;
+}
+.snailkick-chat-box .messages-list .message .message-content-box .message-title .client-name a:hover {
+  text-decoration: underline;
 }
 .snailkick-chat-box .messages-list .message .message-content-box .message-title .client-name .statuses {
   display: inline-block;
@@ -119,6 +132,9 @@
 .snailkick-chat-box .messages-list .message .message-content-box .message-title .client-name .statuses .status.king {
   background-image: url(../images/king.png);
 }
+.snailkick-chat-box .messages-list .message .message-content-box .message-title .client-name .statuses .status.queen {
+  background-image: url(../images/queen.png);
+}
 .snailkick-chat-box .messages-list .message .message-content-box .message-title .posted-time {
   color: #bdffba;
   float: right;
@@ -126,7 +142,7 @@
 .snailkick-chat-box .messages-list .message .message-content-box .message-text {
   margin-top: 5px;
   color: white;
-  font: 12pt "Apple Color Emoji", 'Cleanvertising';
+  font: 12pt 'Cleanvertising', sans-serif;
   text-align: left;
   word-break: break-word;
 }
@@ -154,12 +170,11 @@
   background: none;
   padding: 15px;
   color: white;
-  font: 12pt "Apple Color Emoji", 'Cleanvertising';
+  font: 12pt 'Cleanvertising', sans-serif;
   outline: none;
   display: table-cell;
 }
 .snailkick-chat-box .typing-box .send-button {
-  height: 50px;
   width: 50px;
   background: url('../images/send.png') no-repeat center;
   background-size: 40%;
@@ -178,11 +193,11 @@
 }
 .snailkick-chat-box .auth-box h1 {
   color: white;
-  font: 26pt 'Cleanvertising';
+  font: 26pt 'Cleanvertising', sans-serif;
   text-align: center;
 }
 .snailkick-chat-box .auth-box h2 {
-  font: 15pt 'Cleanvertising';
+  font: 15pt 'Cleanvertising', sans-serif;
   color: white;
   text-align: center;
   width: 80%;
@@ -206,7 +221,7 @@
   background-image: url('../images/vk.png');
 }
 .snailkick-chat-box .auth-box .problems {
-  font: 13pt 'Cleanvertising';
+  font: 13pt 'Cleanvertising', sans-serif;
   color: #a8a8a8;
   text-align: center;
   margin: 35px auto;
@@ -222,7 +237,7 @@
 }
 .snailkick-chat-box .power-off-box h1 {
   color: white;
-  font: 18pt 'Cleanvertising';
+  font: 18pt 'Cleanvertising', sans-serif;
   text-align: center;
 }
 .snailkick-chat-box .power-off-box .power-off-icon {

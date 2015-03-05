@@ -11,7 +11,7 @@ module.exports = function ( grunt ) {
                     out:                    "built/app.build.js",
                     findNestedDependencies: true,
                     include:                [ 'bower_components/requirejs/require.js' ],
-                    optimize:               'none'
+                    optimize:               'uglify'
                 }
             }
         },
