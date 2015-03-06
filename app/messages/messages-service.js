@@ -96,9 +96,6 @@ define(
 
                                     message.posted = new Date( message.posted );
 
-                                    message.viewPostedTime = message.posted.getHours() + ':' + ( message.posted.getMinutes() < 10 ? "0" :
-                                        "" ) + message.posted.getMinutes();
-
 
                                     // html tags //////////////////////////////////
 

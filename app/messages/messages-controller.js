@@ -116,8 +116,45 @@ define(
                             isAlreadyReplied = checkAlreadyRepliedRegexp.test( $scope.messageToSend );
 
 
-                        if ( ! isAlreadyReplied ){ // if not already been replied
+                        if ( ! isAlreadyReplied ) { // if not already been replied
                             $scope.messageToSend = clientName + ', ' + $scope.messageToSend;
+                        }
+
+                    };
+
+                    /**
+                     *
+                     * @todo
+                     * @param {Date} postedTime
+                     */
+                    $scope.convertPostedTime = function ( postedTime ) {
+
+                        var millisecondsInDay = 86400000,
+                            curDate = new Date(),
+
+                            monthsString = {
+                                0: 'янв',
+                                1: 'фев',
+                                2: 'мар',
+                                3: 'апр',
+                                4: 'мая',
+                                5: 'июн',
+                                6: 'июл',
+                                7: 'авг',
+                                8: 'сен',
+                                9: 'окт',
+                                10: 'ноя',
+                                11: 'дек'
+                            },
+
+                            isPassedDateIsYesterdayOrOlder = postedTime.getFullYear() < curDate.getFullYear() ||
+                                                             postedTime.getMonth() < curDate.getMonth() ||
+                                                             postedTime.getDate() < curDate.getDate();
+
+                        if ( isPassedDateIsYesterdayOrOlder ) {
+                            return postedTime.getDate() + ' ' + monthsString[ postedTime.getMonth() ];
+                        } else {
+                            return postedTime.getHours() + ':' + ( postedTime.getMinutes() < 10 ? "0" : "" ) + postedTime.getMinutes();
                         }
 
                     };
