@@ -26,9 +26,11 @@
 }
 .snailkick-chat-box .client-bar .name {
   display: inline-block;
-  height: inherit;
   float: left;
-  padding: 20px 10px;
+  padding: 0 10px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 .snailkick-chat-box .client-bar .name a {
   color: white;
@@ -36,8 +38,10 @@
 .snailkick-chat-box .client-bar .logout {
   display: inline-block;
   float: right;
-  height: inherit;
-  padding: 20px 30px 20px 0;
+  padding: 0 30px 0 0;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 .snailkick-chat-box .client-bar .logout:hover {
   text-decoration: underline;
@@ -47,7 +51,7 @@
   color: white;
   font: 12pt 'Cleanvertising', sans-serif;
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.45);
+  background-color: rgba(0, 0, 0, 0.35);
   overflow: hidden;
   position: absolute;
   width: inherit;
@@ -103,6 +107,7 @@
 }
 .snailkick-chat-box .messages-list .message .message-content-box .message-title .client-name {
   color: #bdffba;
+  cursor: pointer;
   float: left;
 }
 .snailkick-chat-box .messages-list .message .message-content-box .message-title .client-name a {
@@ -188,7 +193,8 @@
 .snailkick-chat-box .auth-box {
   position: absolute;
   vertical-align: middle;
-  top: 30%;
+  top: 50%;
+  transform: translateY(-50%);
   width: inherit;
 }
 .snailkick-chat-box .auth-box h1 {
@@ -228,10 +234,23 @@
   text-decoration: underline;
   cursor: pointer;
 }
+.snailkick-chat-box .banned-box {
+  position: absolute;
+  vertical-align: middle;
+  top: 50%;
+  transform: translateY(-50%);
+  width: inherit;
+}
+.snailkick-chat-box .banned-box h1 {
+  color: white;
+  font: 26pt 'Cleanvertising', sans-serif;
+  text-align: center;
+}
 .snailkick-chat-box .power-off-box {
   position: absolute;
   vertical-align: middle;
-  top: 33%;
+  top: 50%;
+  transform: translateY(-50%);
   width: inherit;
   display: table;
 }
@@ -259,7 +278,8 @@
   background: url(../images/loading.png) center no-repeat;
   background-size: contain;
   position: absolute;
-  top: 40%;
+  top: 50%;
+  transform: translateY(-50%);
   transition: all 0.5s linear;
 }
 @keyframes loading {

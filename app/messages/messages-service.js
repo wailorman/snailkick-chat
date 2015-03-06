@@ -319,6 +319,10 @@ define(
                                 boxStateService.state = 'auth';
                             }
 
+                            /** @namespace userClientService.clientInfo.banned */
+                            if ( userClientService.clientInfo.banned )
+                                boxStateService.state = 'banned';
+
                         }
 
                     };
@@ -329,6 +333,9 @@ define(
                         [
                             function () {
                                 return userClientService.isLoggedIn;
+                            },
+                            function () {
+                                return userClientService.clientInfo;
                             }
                         ],
                         boxStateService.autoUpdateState

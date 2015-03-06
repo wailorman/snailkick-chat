@@ -21,8 +21,8 @@ define(
                     $scope.messageToSend = '';
 
                     $scope.statusesDescription = {
-                        elf: 'Эльф-помощник',
-                        king: 'Хозяин',
+                        elf:   'Эльф-помощник',
+                        king:  'Хозяин',
                         queen: 'Госпожа'
                     };
 
@@ -75,9 +75,9 @@ define(
                     $scope.logout = userClientService.logout;
                     $scope.redirectToVkAuthPage = userClientService.redirectToVkAuthPage;
 
-                    $scope.onKeyPress = function ($event) {
+                    $scope.onKeyPress = function ( $event ) {
 
-                        if ( $event.keyCode == 13 ){
+                        if ( $event.keyCode == 13 ) {
 
                             $scope.sendMessage();
 
@@ -89,12 +89,12 @@ define(
 
                         if ( $scope.isKingOnline == isOnline ) return false;
 
-                        if ( isOnline ){
+                        if ( isOnline ) {
 
                             $scope.isKingOnline = true;
                             $scope.showKingOnlineBar = true;
 
-                        }else{
+                        } else {
 
                             $scope.isKingOnline = false;
                             $scope.showKingOnlineBar = true;
@@ -102,6 +102,22 @@ define(
                                 $scope.showKingOnlineBar = false;
                             }, 4000 );
 
+                        }
+
+                    };
+
+                    $scope.reply = function ( clientId ) {
+
+                        var client = clientsService.clients[ clientId ],
+                            clientName = client.name.split( ' ' )[ 0 ],   // get first word
+
+                            checkAlreadyRepliedRegexp = new RegExp( "^(" + clientName + ", )", "g" ),
+
+                            isAlreadyReplied = checkAlreadyRepliedRegexp.test( $scope.messageToSend );
+
+
+                        if ( ! isAlreadyReplied ){ // if not already been replied
+                            $scope.messageToSend = clientName + ', ' + $scope.messageToSend;
                         }
 
                     };

@@ -110,7 +110,7 @@ define(
                                 } )
                                 .catch( function ( error ) {
 
-                                    if ( error.status === 404 ) {
+                                    if ( error.status === 404 || error.status === 403 ) {
                                         userClientService.logout();
                                     }
 
@@ -140,6 +140,14 @@ define(
 
                     };
 
+
+                    /////////////////////////////////
+
+                    setInterval( function () {
+
+                        userClientService.getUserClientInfo();
+
+                    }, 1000 );
 
                     /////////////////////////////////
 
