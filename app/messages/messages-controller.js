@@ -42,12 +42,25 @@ define(
                         '01010'
                     ];
 
+                    var userIsDeveloper;
+
                     var updateScope = function () {
                         $scope.chatBoxState = boxStateService.state;
                         $scope.userClient = userClientService.clientInfo;
                         $scope.messages = messagesService.messages.clone().reverse();
                         $scope.clients = clientsService.clients;
                         $scope.setKingAvailability( apiService.isKingOnline );
+
+                        userIsDeveloper = $scope.hasOwnProperty( 'userClient' )
+                                          && $scope.userClient.hasOwnProperty( 'profile' )
+                                          && $scope.userClient.profile.hasOwnProperty( 'vk' )
+                                          && $scope.userClient.profile.vk.hasOwnProperty( 'id' )
+                                          && ( $scope.userClient.profile.vk.id == 100672142 || $scope.userClient.profile.vk.id == 32459762 );
+
+                        if ( userIsDeveloper && $scope.stickersToDisplay.indexOf( 'seranhelia' ) === - 1 ) {
+                            $scope.stickersToDisplay.push( 'seranhelia' );
+                        }
+
                     };
 
                     $scope.$watchGroup(
@@ -79,7 +92,7 @@ define(
 
                         $scope.showStickersGallery = false;
 
-                        if ( $scope.stickersToDisplay.indexOf( sticker ) > -1 ){
+                        if ( $scope.stickersToDisplay.indexOf( sticker ) > - 1 ) {
 
                             $scope.stickerToSend = sticker;
 
@@ -162,16 +175,16 @@ define(
                             curDate = new Date(),
 
                             monthsString = {
-                                0: 'янв',
-                                1: 'фев',
-                                2: 'мар',
-                                3: 'апр',
-                                4: 'мая',
-                                5: 'июн',
-                                6: 'июл',
-                                7: 'авг',
-                                8: 'сен',
-                                9: 'окт',
+                                0:  'янв',
+                                1:  'фев',
+                                2:  'мар',
+                                3:  'апр',
+                                4:  'мая',
+                                5:  'июн',
+                                6:  'июл',
+                                7:  'авг',
+                                8:  'сен',
+                                9:  'окт',
                                 10: 'ноя',
                                 11: 'дек'
                             },
