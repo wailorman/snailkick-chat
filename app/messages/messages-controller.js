@@ -26,7 +26,8 @@ define(
                     $scope.statusesDescription = {
                         elf:   'Эльф-помощник',
                         king:  'Хозяин',
-                        queen: 'Госпожа'
+                        queen: 'Госпожа',
+                        brush: 'Художник'
                     };
 
                     $scope.stickersToDisplay = [
