@@ -3,24 +3,31 @@
 <head>
 
     <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <!--<link rel="stylesheet" href="css/main.css"/>-->
-    <!--<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>-->
+    <!-- build:style inline concatCss -->
+    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css"/>
+    <!-- /build -->
 
-    <!--<script src="bower_components/requirejs/require.js" data-main="main.js"></script>-->
+    <!-- build:script inline appBuild -->
+    <script src="bower_components/requirejs/require.js" data-main="main.js"></script>
+    <!-- /build -->
 
-    <link rel="stylesheet" href="built/build.css"/>
-
-    <script src="built/app.build.js"></script>
+    <!--<link rel="stylesheet" href="built/build.css"/>-->
+    <!--<script src="built/app.build.js"></script>-->
 
 
 </head>
 
-<body>
+<body style="background: url(../images/bg.jpg) no-repeat; background-size: cover;">
 
 
 <div id="ng-snailkick-chat">
-    <snailkick-chat></snailkick-chat>
+    <snailkick-chat style="width: 100%"></snailkick-chat>
 </div>
 
 

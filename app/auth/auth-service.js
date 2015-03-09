@@ -14,8 +14,6 @@ define(
 
                     var authService = this;
 
-                    var vkAuthPage = 'http://api.chat.snailkick.ru/:1515/auth/vk';
-
                     /** @namespace $cookies.token */
 
                         //////////////////////////////
@@ -35,16 +33,10 @@ define(
 
                     };
 
-                    authService.redirectToVkAuthPage = function () {
-
-                        $window.location.href = vkAuthPage;
-
-                    };
-
                     authService.logout = function () {
 
                         $cookieStore.remove( 'token' );
-                        $window.location.reload();
+                        document.location.reload();
 
                     };
 
@@ -85,6 +77,8 @@ define(
                 '$q', '$rootScope', '$log', '$window', '$location', 'userTokenService', 'apiService',
                 function ( $q, $rootScope, $log, $window, $location, userTokenService, apiService ) {
 
+                    console.log( "" + document.location.origin + " ." );
+
                     var userClientService = this;
 
                     //////////////////////////
@@ -116,7 +110,7 @@ define(
                                 } )
                                 .catch( function ( error ) {
 
-                                    if ( error.status === 404 ) {
+                                    if ( error.status === 404 || error.status === 403 ) {
                                         userClientService.logout();
                                     }
 
@@ -142,10 +136,18 @@ define(
 
                     userClientService.redirectToVkAuthPage = function () {
 
-                        $window.location.href = 'http://api.chat.snailkick.ru:1515/auth/vk';
+                        document.location.href = apiService.apiUrl + '/auth/vk?rto=' + document.location.origin;
 
                     };
 
+
+                    /////////////////////////////////
+
+                    setInterval( function () {
+
+                        userClientService.getUserClientInfo();
+
+                    }, 1000 );
 
                     /////////////////////////////////
 

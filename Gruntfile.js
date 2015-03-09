@@ -11,7 +11,7 @@ module.exports = function ( grunt ) {
                     out:                    "built/app.build.js",
                     findNestedDependencies: true,
                     include:                [ 'bower_components/requirejs/require.js' ],
-                    optimize:               'none'
+                    optimize:               'uglify'
                 }
             }
         },
@@ -34,7 +34,11 @@ module.exports = function ( grunt ) {
         cssmin: {
             stable: {
                 files: {
-                    'built/build.css': [ 'bower_components/bootstrap/dist/css/bootstrap.min.css', 'css/main.css' ]
+                    'built/build.css': [
+                        'bower_components/bootstrap/dist/css/bootstrap.min.css',
+                        'bower_components/font-awesome/css/font-awesome.css',
+                        'built/main.embed.css'
+                    ]
                 }
             }
         },
@@ -80,6 +84,20 @@ module.exports = function ( grunt ) {
                     'built/app.build.min.js': [ 'built/app.build.js' ]
                 }
             }
+        },
+
+        cssUrlEmbed: {
+            encodeDirectly: {
+                files: {
+                    'built/main.embed.css': [ 'css/main.css' ]
+                }
+            }
+        },
+
+        clean: {
+            built: [
+                'built/main.embed.css'
+            ]
         }
 
     } );
@@ -93,7 +111,8 @@ module.exports = function ( grunt ) {
     grunt.loadNpmTasks( 'grunt-ng-annotate' );
     grunt.loadNpmTasks( 'grunt-ngmin' );
     grunt.loadNpmTasks( 'grunt-contrib-uglify' );
+    grunt.loadNpmTasks( 'grunt-css-url-embed' );
 
-    grunt.task.registerTask( 'default', [ 'requirejs', 'less', 'copy', 'cssmin', 'htmlbuild', 'ngmin' ] );
+    grunt.task.registerTask( 'default', [ 'requirejs', 'less', 'cssUrlEmbed', 'cssmin', 'clean' ] );
 
 };

@@ -70,9 +70,17 @@ define(
                      */
                     messagesService.parseMessages = function ( messages ) {
 
+                        function beautifyUrl( url ) {
+
+                            var urlWithoutProtocol = url.match( /((www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/ig );
+
+                            return decodeURIComponent( urlWithoutProtocol );
+
+                        }
+
                         return $q( function ( resolve, reject ) {
 
-                            var clientsToCache = [];
+                            var clientsForCaching = [];
 
                             if ( ! messages ) messages = messagesService.messages;
 
@@ -80,23 +88,79 @@ define(
                                 messages,
                                 function ( message, ecb ) {
 
+                                    ////////////////////
+                                    // Message parse
+                                    ////////////////////
+
+                                    // time ////////////////////////////////////////
+
                                     message.posted = new Date( message.posted );
 
-                                    message.viewPostedTime = message.posted.getHours() + ':' +
-                                                             ( message.posted.getMinutes() < 10 ? "0" : "" ) + message.posted.getMinutes();
+                                    if ( message.text ) {
 
-                                    clientsToCache.push( message.client );
+                                        // html tags //////////////////////////////////
+
+                                        message.text = (message.text).replace( /<\/?[^>]+(>|$)/g, "" );
+
+                                        // href ///////////////////////////////////////
+
+                                        // find urls
+                                        var urls = message.text.match( /((https?:\/\/)[a-zA-Z\.\/\?!@#\$%&_\-=\+;{}0-9]+)/ig );  // with http
+                                        if ( ! urls ) urls = message.text.match( /([a-zA-Z]+\.(ru|com|org|net|ua|kz))/ig ); // without http
+
+                                        if ( urls ) {
+                                            urls.forEach( function ( foundedUrlString ) {
+
+                                                var changedUrl = foundedUrlString,
+                                                    shortenUrl;
+
+                                                // get shorten url
+                                                shortenUrl = ( changedUrl.match( /(https?:\/\/)?([a-zA-Z\.\/\?!@#\$%&_\-=\+;{}0-9]+)/ig ) )[ 0 ];
+                                                shortenUrl = shortenUrl.slice( 0, 29 );
+                                                if ( changedUrl.length > 30 ) shortenUrl += "...";
+
+                                                // add http
+                                                if ( ! changedUrl.match( /(https?:\/\/)/ig ) ) {
+                                                    changedUrl = 'http://' + changedUrl;
+                                                }
+
+                                                // replace url to <a href=...>
+                                                message.text = message.text.replace( foundedUrlString, '<a href="' + changedUrl + '">' + shortenUrl + '</a>' );
+
+
+                                            } );
+
+                                        }
+
+                                    }
+
+                                    ///////////////////////////////////////////////
+
+                                    clientsForCaching.push( message.client );
 
                                     ecb();
+
+                                    ////////////////////
 
                                 },
                                 function () {
 
+                                    // Delete empty messages
+
+                                    messages.each( function ( currentMessage, index ) {
+                                        if ( currentMessage.text && currentMessage.text.isBlank() ) {
+                                            //messages[ index ].text = '2345';
+                                            //console.log( index + ' is empty!' );
+                                            //delete messages[ index ];
+                                            messages.splice( index, 1 );
+                                        }
+                                    } );
+
                                     // Cache clients
-                                    clientsToCache = clientsToCache.unique();
+                                    clientsForCaching = clientsForCaching.unique();
 
                                     async.each(
-                                        clientsToCache,
+                                        clientsForCaching,
                                         function ( clientId, ecb ) {
 
                                             clientsService.cacheClient( clientId );
@@ -153,13 +217,13 @@ define(
 
                     };
 
-                    messagesService.sendMessage = function ( messageText ) {
+                    messagesService.sendMessage = function ( messageText, sticker ) {
 
                         return $q( function ( resolve, reject ) {
 
-                            if ( ! messageText ) return reject( new Error( 'messageText is empty!' ) );
+                            if ( ! messageText && ! sticker ) return reject( new Error( 'messageText is empty!' ) );
 
-                            apiService.sendMessage( messageText )
+                            apiService.sendMessage( messageText, sticker )
                                 .then( function () {
                                     // success
                                     messagesService.refresh();
@@ -198,10 +262,21 @@ define(
 
                     };
 
+                    messagesService.startKingAvailabilityCheckerInterval = function () {
+
+                        messagesService.kingAvailabilityCheckerInterval = setInterval( function () {
+
+                            apiService.updateKingAvailability();
+
+                        }, 3000 );
+
+                    };
+
 
                     //////////////////////////////////////////////
 
                     messagesService.startRefreshInterval();
+                    messagesService.startKingAvailabilityCheckerInterval();
 
                     //messagesService.refresh();
 
@@ -244,6 +319,10 @@ define(
                                 boxStateService.state = 'auth';
                             }
 
+                            /** @namespace userClientService.clientInfo.banned */
+                            if ( userClientService.clientInfo.banned )
+                                boxStateService.state = 'banned';
+
                         }
 
                     };
@@ -254,6 +333,9 @@ define(
                         [
                             function () {
                                 return userClientService.isLoggedIn;
+                            },
+                            function () {
+                                return userClientService.clientInfo;
                             }
                         ],
                         boxStateService.autoUpdateState

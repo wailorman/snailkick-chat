@@ -6,19 +6,48 @@ define(
 
         return app
             .service( 'apiService', [
-                '$resource', '$rootScope', '$q', '$log', '$http', '$cookies', '$location', 'authService', 'userTokenService',
-                function ( $resource, $rootScope, $q, $log, $http, $cookies, $location, authService, userTokenService ) {
+                '$resource', '$rootScope', '$q', '$log', '$http', '$cookies', '$location', '$window', 'authService', 'userTokenService',
+                function ( $resource, $rootScope, $q, $log, $http, $cookies, $location, $window, authService, userTokenService ) {
 
                     var apiService = this;
 
                     apiService.available = false;
-                    var apiAddress = 'http://api.chat.snailkick.ru:1515';
 
-                    var Messages = $resource( apiAddress + '/messages', {}, {
-                        query: { method: 'GET', isArray: true },
+                    //if ( $window.location.toString().match(/local/gi) ){
+                    if ( document.location.origin.match(/local/gi) )
+                        apiService.apiUrl = 'http://api.chat.snailkick.local:1515';
+                    else
+                        apiService.apiUrl = 'http://api.chat.snailkick.ru:1515';
+
+                    var Messages = $resource( apiService.apiUrl + '/messages', {}, {
+                        query: { method: 'GET', isArray: true, params: { 'token': userTokenService.get() } },
                         send:  { method: 'POST', isArray: false, params: { 'token': userTokenService.get() } }
                     } );
-                    var Client = $resource( apiAddress + '/clients/:idOrToken' );
+                    var Client = $resource( apiService.apiUrl + '/clients/:idOrToken' );
+
+                    var KingAvailability = $resource( apiService.apiUrl + '/is-king-online' );
+
+
+
+                    apiService.updateKingAvailability = function () {
+
+                        KingAvailability.get().$promise
+                            .then( function ( result ) {
+
+                                apiService.isKingOnline = result.isKingOnline;
+
+                            } )
+                            .catch( function ( error ) {
+
+                                apiService.isKingOnline = false;
+
+                                if ( error && error.status == 0 ) {
+                                    apiService.changeApiAvailability( false );
+                                }
+
+                            } );
+
+                    };
 
                     apiService.changeApiAvailability = function ( state ) {
 
@@ -111,7 +140,7 @@ define(
                     };
 
 
-                    apiService.sendMessage = function ( messageText ) {
+                    apiService.sendMessage = function ( messageText, sticker ) {
 
                         return $q( function ( resolve, reject ) {
 
@@ -119,6 +148,8 @@ define(
 
                             var messageToSend = new Messages();
                             messageToSend.text = messageText;
+
+                            if ( sticker ) messageToSend.sticker = sticker;
 
                             var deferredSending = messageToSend.$send();
 
