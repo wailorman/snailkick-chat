@@ -224,6 +224,9 @@
 .snailkick-chat-box .sticker.a01010 {
   background-image: url(../images/stickers/01/10.png);
 }
+.snailkick-chat-box .sticker.aseranhelia {
+  background-image: url(../images/stickers/seranhelia.png);
+}
 .snailkick-chat-box .typing-box {
   position: absolute;
   height: 50px;
