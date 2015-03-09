@@ -2,7 +2,7 @@
   width: inherit;
   height: 100%;
   float: left;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.35);
 }
 .snailkick-chat-box .client-bar {
   background-color: rgba(0, 0, 0, 0.25);
@@ -66,6 +66,9 @@
   bottom: 50px;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+.snailkick-chat-box .messages-list.chosen-sticker-offset {
+  bottom: 146px;
 }
 .snailkick-chat-box .messages-list.show-king-bar {
   top: 98px;
@@ -151,6 +154,11 @@
   text-align: left;
   word-break: break-word;
 }
+.snailkick-chat-box .messages-list .message .message-content-box .message-sticker {
+  height: 80px;
+  width: 80px;
+  text-align: left;
+}
 .snailkick-chat-box .messages-list .message a {
   color: #D9CCFF;
   text-decoration: underline;
@@ -158,6 +166,63 @@
 .snailkick-chat-box .messages-list .message a:hover {
   color: #8c82ae;
   text-decoration: none;
+}
+.snailkick-chat-box .sticker-gallery {
+  width: inherit;
+  height: 200px;
+  background-color: #000;
+  position: absolute;
+  bottom: 50px;
+  z-index: 200;
+  text-align: center;
+  overflow-y: scroll;
+}
+.snailkick-chat-box .sticker-gallery::-webkit-scrollbar {
+  display: none;
+}
+.snailkick-chat-box .sticker-gallery .sticker {
+  height: 80px;
+  width: 80px;
+  display: inline-block;
+  margin: 0 auto;
+  cursor: pointer;
+}
+.snailkick-chat-box .sticker-gallery .sticker:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.snailkick-chat-box .sticker {
+  background: no-repeat center;
+  background-size: contain;
+}
+.snailkick-chat-box .sticker.a01001 {
+  background-image: url(../images/stickers/01/1.png);
+}
+.snailkick-chat-box .sticker.a01002 {
+  background-image: url(../images/stickers/01/2.png);
+}
+.snailkick-chat-box .sticker.a01003 {
+  background-image: url(../images/stickers/01/3.png);
+}
+.snailkick-chat-box .sticker.a01004 {
+  background-image: url(../images/stickers/01/4.png);
+}
+.snailkick-chat-box .sticker.a01005 {
+  background-image: url(../images/stickers/01/5.png);
+}
+.snailkick-chat-box .sticker.a01006 {
+  background-image: url(../images/stickers/01/6.png);
+}
+.snailkick-chat-box .sticker.a01007 {
+  background-image: url(../images/stickers/01/7.png);
+}
+.snailkick-chat-box .sticker.a01008 {
+  background-image: url(../images/stickers/01/8.png);
+}
+.snailkick-chat-box .sticker.a01009 {
+  background-image: url(../images/stickers/01/9.png);
+}
+.snailkick-chat-box .sticker.a01010 {
+  background-image: url(../images/stickers/01/10.png);
 }
 .snailkick-chat-box .typing-box {
   position: absolute;
@@ -167,17 +232,51 @@
   bottom: 0;
   display: table;
 }
+.snailkick-chat-box .typing-box .chosen-sticker {
+  position: absolute;
+  width: 100%;
+  height: 96px;
+  background-color: #000;
+  bottom: 50px;
+  z-index: 100;
+}
+.snailkick-chat-box .typing-box .chosen-sticker .fa {
+  float: right;
+  font-size: 1.35em;
+  color: #bdbdbd;
+  cursor: pointer;
+  margin: 10px;
+}
+.snailkick-chat-box .typing-box .sticker-picker {
+  display: table-cell;
+  width: 50px;
+  background: url('../images/smile.png') no-repeat center;
+  background-size: 40%;
+  opacity: 0.7;
+}
+.snailkick-chat-box .typing-box .sticker-picker.hide-picker {
+  background-image: url('../images/close.png');
+}
+.snailkick-chat-box .typing-box .sticker-picker:hover {
+  opacity: 1;
+  cursor: pointer;
+}
 .snailkick-chat-box .typing-box .text,
 .snailkick-chat-box .typing-box .text:focus {
-  width: 100%;
   height: inherit;
-  border: none;
-  background: none;
-  padding: 15px;
+  padding: 15px 0;
   color: white;
   font: 12pt 'Cleanvertising', sans-serif;
-  outline: none;
   display: table-cell;
+}
+.snailkick-chat-box .typing-box .text input,
+.snailkick-chat-box .typing-box .text:focus input,
+.snailkick-chat-box .typing-box .text input:focus,
+.snailkick-chat-box .typing-box .text:focus input:focus {
+  width: 100%;
+  background: none;
+  border: none;
+  outline: none;
 }
 .snailkick-chat-box .typing-box .send-button {
   width: 50px;

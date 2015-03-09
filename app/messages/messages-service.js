@@ -96,38 +96,41 @@ define(
 
                                     message.posted = new Date( message.posted );
 
+                                    if ( message.text ) {
 
-                                    // html tags //////////////////////////////////
+                                        // html tags //////////////////////////////////
 
-                                    message.text = (message.text).replace(/<\/?[^>]+(>|$)/g, "");
+                                        message.text = (message.text).replace( /<\/?[^>]+(>|$)/g, "" );
 
-                                    // href ///////////////////////////////////////
+                                        // href ///////////////////////////////////////
 
-                                    // find urls
-                                    var urls = message.text.match( /((https?:\/\/)[a-zA-Z\.\/\?!@#\$%&_\-=\+;{}0-9]+)/ig );  // with http
-                                    if ( ! urls ) urls = message.text.match( /([a-zA-Z]+\.(ru|com|org|net|ua|kz))/ig ); // without http
+                                        // find urls
+                                        var urls = message.text.match( /((https?:\/\/)[a-zA-Z\.\/\?!@#\$%&_\-=\+;{}0-9]+)/ig );  // with http
+                                        if ( ! urls ) urls = message.text.match( /([a-zA-Z]+\.(ru|com|org|net|ua|kz))/ig ); // without http
 
-                                    if ( urls ) {
-                                        urls.forEach( function ( foundedUrlString ) {
+                                        if ( urls ) {
+                                            urls.forEach( function ( foundedUrlString ) {
 
-                                            var changedUrl = foundedUrlString,
-                                                shortenUrl;
+                                                var changedUrl = foundedUrlString,
+                                                    shortenUrl;
 
-                                            // get shorten url
-                                            shortenUrl = ( changedUrl.match( /(https?:\/\/)?([a-zA-Z\.\/\?!@#\$%&_\-=\+;{}0-9]+)/ig ) )[ 0 ];
-                                            shortenUrl = shortenUrl.slice( 0, 29 );
-                                            if ( changedUrl.length > 30 ) shortenUrl += "...";
+                                                // get shorten url
+                                                shortenUrl = ( changedUrl.match( /(https?:\/\/)?([a-zA-Z\.\/\?!@#\$%&_\-=\+;{}0-9]+)/ig ) )[ 0 ];
+                                                shortenUrl = shortenUrl.slice( 0, 29 );
+                                                if ( changedUrl.length > 30 ) shortenUrl += "...";
 
-                                            // add http
-                                            if ( ! changedUrl.match( /(https?:\/\/)/ig ) ) {
-                                                changedUrl = 'http://' + changedUrl;
-                                            }
+                                                // add http
+                                                if ( ! changedUrl.match( /(https?:\/\/)/ig ) ) {
+                                                    changedUrl = 'http://' + changedUrl;
+                                                }
 
-                                            // replace url to <a href=...>
-                                            message.text = message.text.replace( foundedUrlString, '<a href="' + changedUrl + '">' + shortenUrl + '</a>' );
+                                                // replace url to <a href=...>
+                                                message.text = message.text.replace( foundedUrlString, '<a href="' + changedUrl + '">' + shortenUrl + '</a>' );
 
 
-                                        } );
+                                            } );
+
+                                        }
 
                                     }
 
@@ -145,7 +148,7 @@ define(
                                     // Delete empty messages
 
                                     messages.each( function ( currentMessage, index ) {
-                                        if ( currentMessage.text.isBlank() ) {
+                                        if ( currentMessage.text && currentMessage.text.isBlank() ) {
                                             //messages[ index ].text = '2345';
                                             //console.log( index + ' is empty!' );
                                             //delete messages[ index ];
@@ -214,13 +217,13 @@ define(
 
                     };
 
-                    messagesService.sendMessage = function ( messageText ) {
+                    messagesService.sendMessage = function ( messageText, sticker ) {
 
                         return $q( function ( resolve, reject ) {
 
-                            if ( ! messageText ) return reject( new Error( 'messageText is empty!' ) );
+                            if ( ! messageText && ! sticker ) return reject( new Error( 'messageText is empty!' ) );
 
-                            apiService.sendMessage( messageText )
+                            apiService.sendMessage( messageText, sticker )
                                 .then( function () {
                                     // success
                                     messagesService.refresh();

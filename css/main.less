@@ -6,6 +6,9 @@
 @message-width: @chat-box-width - @avatar-width - @message-margin-horizontal*2 - 10;
 @king-online-bar-height: 38px;
 
+@sticker-size: 80px;
+
+
 .snailkick-chat-box {
 
     //    width: @chat-box-width;
@@ -13,7 +16,7 @@
     height: @chat-box-height;
     float: left;
 
-    background-color: rgba(0, 0, 0, .70);
+    background-color: rgba(0, 0, 0, .35);
 
     @client-bar-height: 60px;
 
@@ -116,6 +119,10 @@
 
         top: @client-bar-height;
         bottom: @typing-box-height;
+
+        &.chosen-sticker-offset {
+            bottom: @typing-box-height + @sticker-size * 1.2;
+        }
 
         &.show-king-bar {
             top: @client-bar-height + @king-online-bar-height;
@@ -231,6 +238,12 @@
                     word-break: break-word;
                 }
 
+                .message-sticker {
+                    height: @sticker-size;
+                    width: @sticker-size;
+                    text-align: left;
+                }
+
             }
 
             a {
@@ -248,6 +261,55 @@
 
     @typing-box-height: 50px;
 
+    .sticker-gallery {
+        width: inherit;
+        height: 200px;
+        background-color: #000;
+        position: absolute;
+        bottom: @typing-box-height;
+
+        z-index: 200;
+
+        text-align: center;
+
+        overflow-y: scroll;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        .sticker {
+            height: @sticker-size;
+            width: @sticker-size;
+            display: inline-block;
+            margin: 0 auto;
+            cursor: pointer;
+            &:hover {
+                background-color: rgba( 255,255,255, .2 );
+            }
+        }
+
+    }
+
+    // stickers
+    .sticker {
+
+        background: no-repeat center;
+        background-size: contain;
+
+        &.a01001 { background-image: url(../images/stickers/01/1.png); }
+        &.a01002 { background-image: url(../images/stickers/01/2.png); }
+        &.a01003 { background-image: url(../images/stickers/01/3.png); }
+        &.a01004 { background-image: url(../images/stickers/01/4.png); }
+        &.a01005 { background-image: url(../images/stickers/01/5.png); }
+        &.a01006 { background-image: url(../images/stickers/01/6.png); }
+        &.a01007 { background-image: url(../images/stickers/01/7.png); }
+        &.a01008 { background-image: url(../images/stickers/01/8.png); }
+        &.a01009 { background-image: url(../images/stickers/01/9.png); }
+        &.a01010 { background-image: url(../images/stickers/01/10.png); }
+
+    }
+
+
     .typing-box {
 
         position: absolute;
@@ -257,16 +319,61 @@
         bottom: 0;
         display: table;
 
-        .text, .text:focus {
+        .chosen-sticker {
+
+            @chosen-sticker-box-height: 80px;
+
+            position: absolute;
             width: 100%;
+            height: @sticker-size * 1.2;
+            background-color: #000;
+            bottom: @typing-box-height;
+
+            z-index: 100;
+
+            .fa {
+                float: right;
+                font-size: 1.35em;
+                color: rgb(189, 189, 189);
+                cursor: pointer;
+                margin: 10px;
+            }
+
+        }
+
+        .sticker-picker {
+
+            display: table-cell;
+            width: @typing-box-height;
+            background: url('../images/smile.png') no-repeat center;
+            background-size: 40%;
+            opacity: 0.7;
+
+            &.hide-picker {
+                background-image: url( '../images/close.png' );
+            }
+
+            &:hover {
+                opacity: 1;
+                cursor: pointer;
+            }
+
+        }
+
+        .text, .text:focus {
             height: inherit;
-            border: none;
-            background: none;
-            padding: 15px;
+            padding: 15px 0;
             color: white;
             font: 12pt 'Cleanvertising', sans-serif;
-            outline: none;
             display: table-cell;
+
+            input, input:focus {
+                width: 100%;
+                background: none;
+                border: none;
+                outline: none;
+            }
+
         }
 
         .send-button {

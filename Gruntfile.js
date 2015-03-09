@@ -34,7 +34,11 @@ module.exports = function ( grunt ) {
         cssmin: {
             stable: {
                 files: {
-                    'built/build.css': [ 'bower_components/bootstrap/dist/css/bootstrap.min.css', 'built/main.embed.css' ]
+                    'built/build.css': [
+                        'bower_components/bootstrap/dist/css/bootstrap.min.css',
+                        'bower_components/font-awesome/css/font-awesome.css',
+                        'built/main.embed.css'
+                    ]
                 }
             }
         },
@@ -85,7 +89,7 @@ module.exports = function ( grunt ) {
         cssUrlEmbed: {
             encodeDirectly: {
                 files: {
-                    'built/main.embed.css': ['css/main.css']
+                    'built/main.embed.css': [ 'css/main.css' ]
                 }
             }
         },

@@ -140,7 +140,7 @@ define(
                     };
 
 
-                    apiService.sendMessage = function ( messageText ) {
+                    apiService.sendMessage = function ( messageText, sticker ) {
 
                         return $q( function ( resolve, reject ) {
 
@@ -148,6 +148,8 @@ define(
 
                             var messageToSend = new Messages();
                             messageToSend.text = messageText;
+
+                            if ( sticker ) messageToSend.sticker = sticker;
 
                             var deferredSending = messageToSend.$send();
 

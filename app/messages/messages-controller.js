@@ -19,12 +19,28 @@ define(
                     // Variables
                     ///////////////////////////////
                     $scope.messageToSend = '';
+                    $scope.stickerToSend = '';
+
+                    $scope.showStickersGallery = false;
 
                     $scope.statusesDescription = {
                         elf:   'Эльф-помощник',
                         king:  'Хозяин',
                         queen: 'Госпожа'
                     };
+
+                    $scope.stickersToDisplay = [
+                        '01001',
+                        '01002',
+                        '01003',
+                        '01004',
+                        '01005',
+                        '01006',
+                        '01007',
+                        '01008',
+                        '01009',
+                        '01010'
+                    ];
 
                     var updateScope = function () {
                         $scope.chatBoxState = boxStateService.state;
@@ -59,13 +75,26 @@ define(
                     // Scope functions
                     ///////////////////////////////////////////
 
-                    $scope.sendMessage = function ( message ) {
-                        message = message || $scope.messageToSend;
+                    $scope.attachStickerToMessage = function ( sticker ) {
 
-                        messagesService.sendMessage( message )
+                        $scope.showStickersGallery = false;
+
+                        if ( $scope.stickersToDisplay.indexOf( sticker ) > -1 ){
+
+                            $scope.stickerToSend = sticker;
+
+                        }
+
+                    };
+
+                    $scope.sendMessage = function () {
+                        //message = message || $scope.messageToSend;
+
+                        messagesService.sendMessage( $scope.messageToSend, $scope.stickerToSend )
                             .then( function () {
 
                                 $scope.messageToSend = '';
+                                $scope.stickerToSend = '';
 
                             } )
                             .catch( function ( error ) {
