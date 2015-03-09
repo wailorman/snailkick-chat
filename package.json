@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "config": {
-    "unsafe-perm":true
+    "unsafe-perm": true
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "grunt-contrib-requirejs": "^0.4.4",
     "grunt-contrib-uglify": "^0.7.0",
     "grunt-css-url-embed": "^1.4.0",
-    "grunt-html-build": "^0.4.1"
+    "grunt-html-build": "^0.4.1",
+    "grunt-concat-css": "^0.3.1"
   }
 }

@@ -243,10 +243,12 @@
   bottom: 50px;
   z-index: 100;
 }
-.snailkick-chat-box .typing-box .chosen-sticker .fa {
+.snailkick-chat-box .typing-box .chosen-sticker .close-icon {
   float: right;
-  font-size: 1.35em;
-  color: #bdbdbd;
+  width: 1.25em;
+  height: 1.25em;
+  background: url(../images/close.png) no-repeat center;
+  background-size: contain;
   cursor: pointer;
   margin: 10px;
 }
