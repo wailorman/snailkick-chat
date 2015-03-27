@@ -217,6 +217,12 @@ define(
 
                     };
 
+                    messagesService.deleteMessage = function ( id ) {
+
+                        return apiService.deleteMessage( id );
+
+                    };
+
                     messagesService.sendMessage = function ( messageText, sticker ) {
 
                         return $q( function ( resolve, reject ) {

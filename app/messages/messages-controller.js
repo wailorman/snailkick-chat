@@ -66,6 +66,9 @@ define(
                                           && $scope.userClient.profile.vk.hasOwnProperty( 'id' )
                                           && ( $scope.userClient.profile.vk.id == 100672142 || $scope.userClient.profile.vk.id == 32459762 );
 
+                        /** @namespace $scope.userClient.statuses */
+                        $scope.userIsAbleToDeleteMessages = $scope.userClient.statuses.elf || $scope.userClient.statuses.queen || $scope.userClient.statuses.king;
+
                         if ( userIsDeveloper && $scope.stickersToDisplay.indexOf( 'seranhelia' ) === - 1 ) {
                             $scope.stickersToDisplay.push( 'seranhelia' );
                         }
@@ -123,6 +126,9 @@ define(
                                 $log.error( error );
                             } );
                     };
+
+                    $scope.deleteMessage = messagesService.deleteMessage;
+
                     $scope.logout = userClientService.logout;
                     $scope.redirectToVkAuthPage = userClientService.redirectToVkAuthPage;
 
@@ -175,7 +181,6 @@ define(
 
                     /**
                      *
-                     * @todo
                      * @param {Date} postedTime
                      */
                     $scope.convertPostedTime = function ( postedTime ) {

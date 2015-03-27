@@ -19,10 +19,12 @@ define(
                     else
                         apiService.apiUrl = 'http://api.chat.snailkick.ru:1515';
 
-                    var Messages = $resource( apiService.apiUrl + '/messages', {}, {
+                    var Messages = $resource( apiService.apiUrl + '/messages/:id', {}, {
                         query: { method: 'GET', isArray: true, params: { 'token': userTokenService.get() } },
-                        send:  { method: 'POST', isArray: false, params: { 'token': userTokenService.get() } }
+                        send:  { method: 'POST', isArray: false, params: { 'token': userTokenService.get() } },
+                        delete:  { method: 'DELETE', isArray: false, params: { 'token': userTokenService.get() } }
                     } );
+
                     var Client = $resource( apiService.apiUrl + '/clients/:idOrToken' );
 
                     var KingAvailability = $resource( apiService.apiUrl + '/is-king-online' );
@@ -165,6 +167,23 @@ define(
                             } );
 
                             apiService.catchApiUnavailable( deferredSending );
+
+                        } );
+
+                    };
+
+
+                    apiService.deleteMessage = function ( id ) {
+
+                        return $q( function ( resolve, reject ) {
+
+                            if ( !id ) return reject( new Error( 'Message id missing' ) );
+
+                            var messageToRemove = new Messages();
+
+                            messageToRemove.$delete( { id: id } )
+                                .then( resolve )
+                                .catch( reject );
 
                         } );
 

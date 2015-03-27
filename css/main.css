@@ -108,6 +108,15 @@
 .snailkick-chat-box .messages-list .message .message-content-box .message-title {
   height: 15px;
 }
+.snailkick-chat-box .messages-list .message .message-content-box .message-title .close-icon {
+  width: 0.8em;
+  height: 0.8em;
+  background: url(../images/close.png) no-repeat center;
+  background-size: contain;
+  cursor: pointer;
+  display: inline-block;
+  margin-right: 5px;
+}
 .snailkick-chat-box .messages-list .message .message-content-box .message-title .client-name {
   color: #bdffba;
   cursor: pointer;
