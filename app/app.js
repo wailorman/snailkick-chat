@@ -1,3 +1,7 @@
+/*!
+* Snailkick chat v1.3.1
+* */
+
 define(
     [
         'angular',
