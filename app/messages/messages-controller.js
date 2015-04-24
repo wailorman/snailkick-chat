@@ -27,7 +27,8 @@ define(
                         elf:   'Эльф-помощник',
                         king:  'Хозяин',
                         queen: 'Госпожа',
-                        brush: 'Художник'
+                        brush: 'Художник',
+                        "bug-hunter": 'Bug Hunter'
                     };
 
                     $scope.stickersToDisplay = [
@@ -67,7 +68,7 @@ define(
                                           && ( $scope.userClient.profile.vk.id == 100672142 || $scope.userClient.profile.vk.id == 32459762 );
 
                         /** @namespace $scope.userClient.statuses */
-                        $scope.userIsAbleToDeleteMessages = $scope.userClient.statuses.elf || $scope.userClient.statuses.queen || $scope.userClient.statuses.king;
+                        $scope.userIsAbleToDeleteMessages = $scope.userClient.statuses && ( $scope.userClient.statuses.elf || $scope.userClient.statuses.queen || $scope.userClient.statuses.king );
 
                         if ( userIsDeveloper && $scope.stickersToDisplay.indexOf( 'seranhelia' ) === - 1 ) {
                             $scope.stickersToDisplay.push( 'seranhelia' );
