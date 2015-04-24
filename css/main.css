@@ -155,6 +155,9 @@
 .snailkick-chat-box .messages-list .message .message-content-box .message-title .client-name .statuses .status.brush {
   background-image: url(../images/brush.png);
 }
+.snailkick-chat-box .messages-list .message .message-content-box .message-title .client-name .statuses .status.bug-hunter {
+  background-image: url(../images/bug-hunter.png);
+}
 .snailkick-chat-box .messages-list .message .message-content-box .message-title .posted-time {
   color: #bdffba;
   float: right;
