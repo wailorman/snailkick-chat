@@ -113,6 +113,6 @@ module.exports = function ( grunt ) {
     grunt.loadNpmTasks( 'grunt-contrib-uglify' );
     grunt.loadNpmTasks( 'grunt-css-url-embed' );
 
-    grunt.task.registerTask( 'default', [ 'requirejs', 'less', 'cssUrlEmbed', 'cssmin', 'clean' ] );
+    grunt.task.registerTask( 'default', [ 'requirejs', 'less', 'cssUrlEmbed', 'cssmin', 'htmlbuild', 'clean' ] );
 
 };
