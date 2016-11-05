@@ -15,9 +15,9 @@ define(
 
                     //if ( $window.location.toString().match(/local/gi) ){
                     if ( document.location.origin.match(/local/gi) )
-                        apiService.apiUrl = 'http://api.chat.snailkick.local:1515';
+                        apiService.apiUrl = 'http://localhost:1515';
                     else
-                        apiService.apiUrl = 'http://api.chat.snailkick.ru:1515';
+                        apiService.apiUrl = 'https://snailkick-chat-backend.herokuapp.com';
 
                     var Messages = $resource( apiService.apiUrl + '/messages', {}, {
                         query: { method: 'GET', isArray: true, params: { 'token': userTokenService.get() } },
